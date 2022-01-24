@@ -220,7 +220,7 @@ export const CheckCashier = () => {
         } catch (e) {
             notify(e)
         }
-    }, [request, connectorId, auth, setServices, setServices1, setSectionsT])
+    }, [request, connectorId, auth, setServices, setServices1, setServicesT])
 
     const inputPriceSection = useCallback((event, key) => {
         document.getElementById(`checkbox${key}`).checked = false
