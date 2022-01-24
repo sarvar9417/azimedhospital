@@ -138,7 +138,7 @@ export const CheckCashier = () => {
         } catch (e) {
             notify(e)
         }
-    }, [request, clientId, auth, setClient])
+    }, [request, clientId, auth, setClient, setClientT])
 
     const getConnector = useCallback(async () => {
         try {
@@ -151,7 +151,7 @@ export const CheckCashier = () => {
         } catch (e) {
             notify(e)
         }
-    }, [request, connectorId, auth, setConnector])
+    }, [request, connectorId, auth, setConnector, setConnectorT])
 
     const [sections1, setSections1] = useState()
     const [services1, setServices1] = useState()
@@ -220,7 +220,7 @@ export const CheckCashier = () => {
         } catch (e) {
             notify(e)
         }
-    }, [request, connectorId, auth, setServices, setServices1])
+    }, [request, connectorId, auth, setServices, setServices1, setSectionsT])
 
     const inputPriceSection = useCallback((event, key) => {
         document.getElementById(`checkbox${key}`).checked = false
