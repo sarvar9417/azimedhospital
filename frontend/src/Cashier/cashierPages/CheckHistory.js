@@ -245,7 +245,7 @@ export const CheckHistory = () => {
                     </div>
                     <div className="row">
                         <div className="col-12 text-center">
-                            <button className="btn button-success" onClick={() => { setModal(true) }}>Chekni chop etish</button>
+                            <button disabled={loading} className="btn button-success" onClick={() => { setModal(true) }}>Chekni chop etish</button>
                         </div>
                     </div>
                 </div>

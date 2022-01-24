@@ -615,7 +615,7 @@ export const CheckCashier = () => {
                             <th style={{ width: "15%", textAlign: "center", padding: "10px 0" }}>№</th>
                             <th style={{ width: "35%", textAlign: "center", padding: "10px 0" }}>Bo'limlar</th>
                             <th style={{ width: "15%", textAlign: "center", padding: "10px 0" }}>Hisob</th>
-                            <th style={{ width: "25%", textAlign: "center", padding: "10px 0" }}>To'lov <input onChange={paymenteds} type="checkbox" className="check" /></th>
+                            <th style={{ width: "25%", textAlign: "center", padding: "10px 0" }}>To'lov <input disabled={loading} onChange={paymenteds} type="checkbox" className="check" /></th>
                             <th style={{ width: "10%", textAlign: "center", padding: "10px 0" }}>Sabab</th>
                         </tr>
                     </thead>
@@ -637,7 +637,7 @@ export const CheckCashier = () => {
                                         <td style={{ width: "15%", textAlign: "center", padding: "10px 0" }}>{section.price}</td>
                                         <td style={{ width: "25%", padding: "10px 0" }}>
                                             <input onChange={event => inputPriceSection(event, key)} value={section.priceCashier} type="number" className="form-control" style={{ width: "80%", margin: "auto", display: "inline" }} />
-                                            <input checked={section.priceCashier === section.price ? true : false} id={`checkbox${key}`} onChange={event => checkboxSection(event, key)} type="checkbox" className="check" style={{ position: "absolute" }} />
+                                            <input disabled={loading} checked={section.priceCashier === section.price ? true : false} id={`checkbox${key}`} onChange={event => checkboxSection(event, key)} type="checkbox" className="check" style={{ position: "absolute" }} />
                                         </td>
 
                                         <td style={{ textAlign: "center", padding: "10px 0", color: "green" }}>
@@ -664,7 +664,7 @@ export const CheckCashier = () => {
                                         <td style={{ width: "15%", textAlign: "center", padding: "10px 0" }}>{service.price}</td>
                                         <td style={{ width: "25%", padding: "10px 0" }}>
                                             <input onChange={event => inputPriceService(event, key)} value={service.priceCashier} type="number" className="form-control" style={{ width: "80%", margin: "auto", display: "inline" }} />
-                                            <input checked={service.priceCashier === service.price ? true : false} id={`checkboxservice${key}`} onChange={event => checkboxService(event, key)} type="checkbox" className="check" style={{ position: "absolute" }} />
+                                            <input disabled={loading} checked={service.priceCashier === service.price ? true : false} id={`checkboxservice${key}`} onChange={event => checkboxService(event, key)} type="checkbox" className="check" style={{ position: "absolute" }} />
                                         </td>
 
                                         <td style={{ textAlign: "center", padding: "10px 0", color: "green" }}>
@@ -719,7 +719,7 @@ export const CheckCashier = () => {
                     <div className='row border-top border-bottom p-3'>
                         <div className='col-md-3 col-4 text-center '>
                             <label className='mx-3 ' >
-                                <input onChange={setAllPayment} id='card' type="radio" name="payment" /> Plastik
+                                <input disabled={loading} onChange={setAllPayment} id='card' type="radio" name="payment" /> Plastik
                             </label>
                             <input
                                 value={payment.card}
@@ -732,7 +732,7 @@ export const CheckCashier = () => {
                         </div>
                         <div className='col-md-3 col-4 text-center'>
                             <label className='mx-3'>
-                                <input onChange={setAllPayment} id='cash' type="radio" name="payment" id='cash' /> Naqt
+                                <input disabled={loading} onChange={setAllPayment} id='cash' type="radio" name="payment" id='cash' /> Naqt
                             </label>
                             <input
                                 value={payment.cash}
@@ -745,7 +745,7 @@ export const CheckCashier = () => {
                         </div>
                         <div className='col-md-3 col-4 text-center'>
                             <label className='mx-3'>
-                                <input onChange={setAllPayment} id='transfer' type="radio" name="payment" /> O'tkazma
+                                <input disabled={loading} onChange={setAllPayment} id='transfer' type="radio" name="payment" /> O'tkazma
                             </label>
                             <input
                                 value={payment.transfer}
@@ -758,13 +758,13 @@ export const CheckCashier = () => {
                         </div>
                         <div className='col-md-3 col-4 text-center'>
                             <label className='mx-3'>
-                                <input onChange={setAllPayment} id='mixed' type="radio" name="payment" /> Aralash
+                                <input disabled={loading} onChange={setAllPayment} id='mixed' type="radio" name="payment" /> Aralash
                             </label>
                         </div>
                     </div>
                     <div className="row pt-3">
                         <div className="col-12 text-center">
-                            <button className="btn button-success" onClick={checkPrices}>To'lovni tasdiqlash</button>
+                            <button disabled={loading} className="btn button-success" onClick={checkPrices}>To'lovni tasdiqlash</button>
                         </div>
                     </div>
                 </div>
@@ -884,7 +884,7 @@ export const CheckCashier = () => {
                         <div className="card-footer">
                             <div className="row ">
                                 <div className="col-12 text-center">
-                                    <button onClick={checkPrices2} disabled={loading} className="btn button-success" style={{ marginRight: "30px" }}>Tasdiqlash</button>
+                                    <button disabled={loading} onClick={checkPrices2}  className="btn button-success" style={{ marginRight: "30px" }}>Tasdiqlash</button>
                                     <button onClick={() => setModal1(false)} className="btn button-danger" >Qaytish</button>
                                 </div>
                             </div>
