@@ -28,9 +28,13 @@ export const CheckCashier = () => {
     const [connectorId, setConnectorId] = useState(useParams().connector)
     const [clientid, setClientid] = useState()
     const [sections, setSections] = useState()
+    const [sectionsT, setSectionsT] = useState()
     const [services, setServices] = useState()
+    const [servicesT, setServicesT] = useState()
     const [connector, setConnector] = useState()
+    const [connectorT, setConnectorT] = useState()
     const [client, setClient] = useState()
+    const [clientT, setClientT] = useState()
     const { request, error, clearError, loading } = useHttp()
 
     const [payment, setPayment] = useState({
@@ -130,6 +134,7 @@ export const CheckCashier = () => {
                 Authorization: `Bearer ${auth.token}`
             })
             setClient(fetch)
+            setClientT(1)
         } catch (e) {
             notify(e)
         }
@@ -142,6 +147,7 @@ export const CheckCashier = () => {
             })
             setConnector(fetch)
             setPayment({ ...payment, position: fetch.type })
+            setConnectorT(1)
         } catch (e) {
             notify(e)
         }
@@ -182,10 +188,11 @@ export const CheckCashier = () => {
             })
             setSections(fetch)
             setSections1(s)
+            setSectionsT(1)
         } catch (e) {
             notify(e)
         }
-    }, [request, connectorId, auth, setSections, setSections1])
+    }, [request, connectorId, auth, setSections, setSections1, setSectionsT])
 
     const getSections1 = useCallback(async () => {
         try {
@@ -209,6 +216,7 @@ export const CheckCashier = () => {
             })
             setServices(fetch)
             setServices1([...fetch])
+            setServicesT(1)
         } catch (e) {
             notify(e)
         }
@@ -554,16 +562,16 @@ export const CheckCashier = () => {
             notify(error)
             clearError()
         }
-        if (!sections) {
+        if (!sectionsT) {
             getSections()
         }
-        if (!client) {
+        if (!clientT) {
             getClient()
         }
-        if (!connector) {
+        if (!connectorT) {
             getConnector()
         }
-        if (!services) {
+        if (!servicesT) {
             getServices()
         }
     }, [notify, clearError])
