@@ -5,6 +5,7 @@ import { useHttp } from '../hooks/http.hook'
 import './cashier.css'
 import { AuthContext } from '../context/AuthContext'
 import { toast } from "react-toastify"
+import { Loader } from '../components/Loader'
 
 toast.configure()
 export const CheckCashier = () => {
@@ -576,7 +577,9 @@ export const CheckCashier = () => {
         }
     }, [notify, clearError])
 
-
+    if (loading) {
+        return <Loader />
+    }
 
     return (
         <>
@@ -884,7 +887,7 @@ export const CheckCashier = () => {
                         <div className="card-footer">
                             <div className="row ">
                                 <div className="col-12 text-center">
-                                    <button disabled={loading} onClick={checkPrices2}  className="btn button-success" style={{ marginRight: "30px" }}>Tasdiqlash</button>
+                                    <button disabled={loading} onClick={checkPrices2} className="btn button-success" style={{ marginRight: "30px" }}>Tasdiqlash</button>
                                     <button onClick={() => setModal1(false)} className="btn button-danger" >Qaytish</button>
                                 </div>
                             </div>
