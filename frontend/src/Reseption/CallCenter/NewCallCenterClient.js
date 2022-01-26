@@ -273,7 +273,6 @@ export const NewCallCenterClient = () => {
         counteragent,
         type: "callcenter",
         position: " ",
-        prepayment: 0,
         diagnosis: " ",
         bronDay: new Date(),
         prepaymentCashier: 0,
