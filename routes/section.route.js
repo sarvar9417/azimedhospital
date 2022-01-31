@@ -259,7 +259,7 @@ router.patch('/cashier', auth, async (req, res) => {
             p = p + (services[i].priceCashier - service.priceCashier)
         }
         if (p !== payment.total) {
-            res.status(500).json({ message: "To'lov summasini aniqlashda xatolik yuz berdi. Iltimos sahifani yangilab qayta urininb ko'ring." })
+            res.status(400).json({ message: "To'lov summasini aniqlashda xatolik yuz berdi. Iltimos sahifani yangilab qayta urininb ko'ring." })
         }
         for (let i = 0; i < sections.length; i++) {
             const section = await Section.findByIdAndUpdate(sections[i]._id, sections[i])

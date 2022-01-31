@@ -467,7 +467,7 @@ export const CheckCashier = () => {
                 Authorization: `Bearer ${auth.token}`
             })
         } catch (e) {
-            notify(e)
+            notify(e.message)
         }
     }, [request, auth, payment, sections, services])
 
@@ -485,7 +485,7 @@ export const CheckCashier = () => {
             })
             setClientId(fetch[0]._id)
         } catch (e) {
-            notify(e)
+            notify(e.message)
         }
     }, [request, clientid, auth, setClientId])
 
