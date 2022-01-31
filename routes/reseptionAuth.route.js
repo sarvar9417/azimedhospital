@@ -74,7 +74,8 @@ router.post('/login', async (req, res) => {
         }
         const token = jwt.sign(
             { reseptionId: reseption._id },
-            config.get('jwtSecret')
+            config.get('jwtSecret'),
+            { expiresIn: '12h' }
         )
         res.send({ token, reseptionId: reseption._id, type: "reseption" })
 
@@ -87,7 +88,7 @@ router.post('/login', async (req, res) => {
 // /api/auth/reseption/:id
 router.patch('/:id', async (req, res) => {
     try {
-        
+
         const { error } = validateReseption(req.body)
         if (error) {
             return res.status(400).json({

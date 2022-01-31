@@ -74,7 +74,8 @@ router.post('/login', async (req, res) => {
         }
         const token = jwt.sign(
             { fizioterapevtId: fizioterapevt._id },
-            config.get('jwtSecret')
+            config.get('jwtSecret'),
+            { expiresIn: '12h' }
         )
         res.send({ token, fizioterapevtId: fizioterapevt._id })
 

@@ -4,6 +4,7 @@ const { Director, validateDirector, validateDirectorLogin } = require('../models
 const bcrypt = require('bcryptjs')
 const config = require('config')
 const jwt = require('jsonwebtoken')
+const { expression } = require('joi')
 
 router.post('/register', async (req, res) => {
     try {
@@ -72,7 +73,8 @@ router.post('/login', async (req, res) => {
 
         const token = jwt.sign(
             { directorId: director._id },
-            config.get('jwtSecret')
+            config.get('jwtSecret'),
+            {expiresIn: '12h'}
         )
         res.send({ token, directorId: director._id, director: director })
 

@@ -74,7 +74,8 @@ router.post('/login', async (req, res) => {
         }
         const token = jwt.sign(
             { cashierId: cashier._id },
-            config.get('jwtSecret')
+            config.get('jwtSecret'),
+            { expiresIn: '12h' }
         )
         res.send({ token, cashierId: cashier._id })
 
