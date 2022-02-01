@@ -195,10 +195,10 @@ export const ClientsDoctor = () => {
                             all && all.sections && all.sections.map((section, index) => {
                                 allPrice = allPrice + section.price
                                 paid = paid + section.priceCashier
-                                if (all && all.directions[index] && all.directions[index].doctorProcient <= 100) {
+                                if (all && all.directions[index] && all.directions[index].doctorProcient <= 100 && (section.bron ==="statsionar" || section.price !== 0)) {
                                     doctorSumma = doctorSumma + section.price * parseInt(all.directions[index].doctorProcient) / 100
                                 }
-                                if (all && all.directions[index] && all.directions[index].doctorProcient > 100) {
+                                if (all && all.directions[index] && all.directions[index].doctorProcient > 100 && (section.bron === "statsionar" || section.price !== 0)) {
                                     doctorSumma = doctorSumma + parseInt(all.directions[index].doctorProcient)
                                 }
                                 return (
