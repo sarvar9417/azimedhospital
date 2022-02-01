@@ -1,14 +1,12 @@
 import React, { useCallback, useEffect, useState, Component, useContext } from 'react'
-import { Loader } from '../components/Loader'
 import { useHttp } from '../hooks/http.hook'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPenAlt, faSearch, faSort, faPrint, faClock, faCheck, faSyncAlt, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import { faPenAlt, faSearch, faSort } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import DatePicker from "react-datepicker"
 import { AuthContext } from '../context/AuthContext'
 import './tableStyle.css'
-import Select from 'react-select'
 import ReactHTMLTableToExcel from 'react-html-to-excel'
 
 import "react-datepicker/dist/react-datepicker.css"
