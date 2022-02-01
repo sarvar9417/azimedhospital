@@ -200,7 +200,7 @@ export const ClientsPages = () => {
                                 all && all.sections && all.sections.map((section, index) => {
                                     allPrice = allPrice + section.price
                                     paid = paid + section.priceCashier
-                                    if (all && all.directions[index].doctorProcient <= 100) {
+                                    if (all && all.directions[index] && all.directions[index].doctorProcient <= 100) {
                                         doctorSumma = doctorSumma + section.price * parseInt(all.directions[index].doctorProcient) / 100
                                     }
                                     if (all && all.directions[index] && all.directions[index].doctorProcient > 100) {
@@ -257,7 +257,7 @@ export const ClientsPages = () => {
                                                 {++kk}
                                             </td>
                                             <td className="fish text-uppercase ps-3 fw-bold text-success">
-                                                {all.clients[index] && all.clients[index].lastname} {all.clients[index].firstname} {all.clients[index].fathername}
+                                                {all.clients[index] && all.clients[index].lastname} {all.clients[index] && all.clients[index].firstname} {all.clients[index] && all.clients[index].fathername}
                                             </td>
                                             <td className="id" >
                                                 {all.clients[index] && new Date(all.clients[index].born).toLocaleDateString()}

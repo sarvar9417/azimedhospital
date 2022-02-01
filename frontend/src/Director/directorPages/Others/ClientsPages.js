@@ -280,7 +280,7 @@ export const ClientsPages = () => {
                     </thead>
                     <tbody className="" >
                         {
-                            all &&
+                            all && all.connectors &&
                             all.connectors.map((connector, key) => {
                                 if (type === "all") {
                                     if (all.sections[key].length !== 0) {
