@@ -12,7 +12,6 @@ const mongoose = require('mongoose')
 
 toast.configure()
 export const ClientsDoctor = () => {
-    let mmm = -1
     //Avtorizatsiyani olish
     const { loading, request, error, clearError } = useHttp()
     const [doctor, setDoctor] = useState()
@@ -20,7 +19,6 @@ export const ClientsDoctor = () => {
     const auth = useContext(AuthContext)
 
     let paid = 0
-    let unpaid = 0
     let doctorSumma = 0
     let allPrice = 0
     let k = 0
@@ -37,6 +35,7 @@ export const ClientsDoctor = () => {
             const fetch = await request(`/api/connector/doctor/${startDate}/${endDate}/${doctorId}`, 'GET', null, {
                 Authorization: `Bearer ${auth.token}`
             })
+            console.log(fetch)
             setAll(fetch)
         } catch (e) {
             notify(e)
@@ -191,12 +190,13 @@ export const ClientsDoctor = () => {
                     </thead>
                     <tbody className="" >
                         {
-                            all && all.sections.map((section, index) => {
+                            all && all.sections && all.sections.map((section, index) => {
                                 allPrice = allPrice + section.price
                                 paid = paid + section.priceCashier
-                                if (all && all.directions[index].doctorProcient <= 100) {
+                                if (all && all.directions[index] && all.directions[index].doctorProcient <= 100) {
                                     doctorSumma = doctorSumma + section.price * parseInt(all.directions[index].doctorProcient) / 100
-                                } else {
+                                }
+                                if (all && all.directions[index] && all.directions[index].doctorProcient > 100) {
                                     doctorSumma = doctorSumma + parseInt(all.directions[index].doctorProcient)
                                 }
                                 return (
@@ -220,7 +220,7 @@ export const ClientsDoctor = () => {
                                         <td className="section text-uppercase">  {section.name}  <span style={{ fontSize: "10pt" }}>{section.subname}</span></td>
                                         <td className="date text-center">{section.price}</td>
                                         <td className="date text-center">{section.priceCashier}</td>
-                                        <td className="date text-center">{all && all.directions[index].doctorProcient < 101 ? section.price * all.directions[index].doctorProcient / 100 : all.directions[index].doctorProcient}</td>
+                                        <td className="date text-center">{all && all.directions[index].doctorProcient < 101 ? section.price * all.directions[index].doctorProcient / 100 : `${all && all.directions[index] ? all.directions[index].doctorProcient : ""}`}</td>
                                     </tr>
                                 )
                             }
@@ -243,7 +243,7 @@ export const ClientsDoctor = () => {
                 <table className=" table-hover"  >
                     <tbody className="" >
                         {
-                            all && all.sections.map((section, index) => {
+                            all && all.sections && all.sections.map((section, index) => {
                                 return (
                                     <tr index={index} className=' border-top' >
                                         <td className="no border-right" >
@@ -265,7 +265,7 @@ export const ClientsDoctor = () => {
                                         <td className="section text-uppercase">  {section.name}  <span style={{ fontSize: "10pt" }}>{section.subname}</span></td>
                                         <td className="date text-center">{section.price}</td>
                                         <td className="date text-center">{section.priceCashier}</td>
-                                        <td className="date text-center">{all && all.directions[index].doctorProcient < 101 ? section.price * all.directions[index].doctorProcient / 100 : all.directions[index].doctorProcient}</td>
+                                        <td className="date text-center">{all && all.directions[index] && all.directions[index].doctorProcient < 101 ? section.price * all.directions[index].doctorProcient / 100 : `${all && all.directions[index] ? all.directions[index].doctorProcient : ""}`}</td>
                                     </tr>
                                 )
                             }

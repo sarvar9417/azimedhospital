@@ -199,12 +199,13 @@ export const ClientsPages = () => {
                         </thead>
                         <tbody className="" >
                             {
-                                all && all.sections.map((section, index) => {
+                                all && all.sections && all.sections.map((section, index) => {
                                     allPrice = allPrice + section.price
                                     paid = paid + section.priceCashier
                                     if (all && all.directions[index].doctorProcient <= 100) {
                                         doctorSumma = doctorSumma + section.price * parseInt(all.directions[index].doctorProcient) / 100
-                                    } else {
+                                    }
+                                    if (all && all.directions[index] && all.directions[index].doctorProcient > 100) {
                                         doctorSumma = doctorSumma + parseInt(all.directions[index].doctorProcient)
                                     }
                                     return (
@@ -228,7 +229,7 @@ export const ClientsPages = () => {
                                             <td className="section text-uppercase">  {section.name}  <span style={{ fontSize: "10pt" }}>{section.subname}</span></td>
                                             <td className="date text-center">{section.price}</td>
                                             <td className="date text-center">{section.priceCashier}</td>
-                                            <td className="date text-center">{all && all.directions[index].doctorProcient < 101 ? section.price * all.directions[index].doctorProcient / 100 : all.directions[index].doctorProcient}</td>
+                                            <td className="date text-center">{all && all.directions[index].doctorProcient < 101 ? section.price * all.directions[index].doctorProcient / 100 : `${all && all.directions[index] ? all.directions[index].doctorProcient : ""}`}</td>
                                         </tr>
                                     )
                                 }
@@ -251,7 +252,7 @@ export const ClientsPages = () => {
                     <table className=" table-hover"  >
                         <tbody className="" >
                             {
-                                all && all.sections.map((section, index) => {
+                                all && all.sections && all.sections.map((section, index) => {
                                     return (
                                         <tr index={index} className=' border-top' >
                                             <td className="no border-right" >
@@ -274,7 +275,7 @@ export const ClientsPages = () => {
                                             <td className="edit">  <Link to={`/doctor/adoption/${section._id}`} > <FontAwesomeIcon icon={faPenAlt} className="text-dark" /> </Link>   </td>
                                             <td className="date text-center">{section.price}</td>
                                             <td className="date text-center">{section.priceCashier}</td>
-                                            <td className="date text-center">{all && all.directions[index].doctorProcient < 101 ? section.price * all.directions[index].doctorProcient / 100 : all.directions[index].doctorProcient}</td>
+                                            <td className="date text-center">{all && all.directions[index].doctorProcient < 101 ? section.price * all.directions[index].doctorProcient / 100 : `${all && all.directions[index] ? all.directions[index].doctorProcient : ""}`}</td>
                                         </tr>
                                     )
                                 }
