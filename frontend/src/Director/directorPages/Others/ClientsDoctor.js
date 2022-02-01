@@ -162,6 +162,7 @@ export const ClientsDoctor = () => {
                                 <th scope="" className="id text-center">ID <FontAwesomeIcon icon={faSort} /></th>
                                 <th scope="" className="phone text-center">Tel <FontAwesomeIcon icon={faSort} /></th>
                                 <th scope="" className="date text-center">Kelgan vaqti <FontAwesomeIcon icon={faSort} /></th>
+                                <th scope="" className="section text-center">Qabul turi <FontAwesomeIcon icon={faSort} /></th>
                                 <th scope="" className="section text-center">Bo'limi <FontAwesomeIcon icon={faSort} /></th>
                                 <th scope="" className="prices text-center">To'lov <FontAwesomeIcon icon={faSort} /></th>
                                 <th scope="" className="prices text-center">To'langan <FontAwesomeIcon icon={faSort} /></th>
@@ -182,6 +183,7 @@ export const ClientsDoctor = () => {
                             <th scope="" className="id text-center">ID <FontAwesomeIcon icon={faSort} /></th>
                             <th scope="" className="phone text-center">Tel <FontAwesomeIcon icon={faSort} /></th>
                             <th scope="" className="date text-center" >Kelgan vaqti <FontAwesomeIcon icon={faSort} /></th>
+                            <th scope="" className="section text-center">Qabul turi <FontAwesomeIcon icon={faSort} /></th>
                             <th scope="" className="section text-center">Bo'limi <FontAwesomeIcon icon={faSort} /></th>
                             <th scope="" className="prices text-center">To'lov <FontAwesomeIcon icon={faSort} /></th>
                             <th scope="" className="prices text-center">To'langan <FontAwesomeIcon icon={faSort} /></th>
@@ -217,6 +219,7 @@ export const ClientsDoctor = () => {
                                             +{all.clients[index] && all.clients[index].phone}
                                         </td>
                                         <td className="date text-center" >{new mongoose.Types.ObjectId(section._id).getTimestamp().toLocaleDateString()} {new mongoose.Types.ObjectId(section._id).getTimestamp().toLocaleTimeString()}</td>
+                                        <td className="date text-center" >{section.bron}</td>
                                         <td className="section text-uppercase">  {section.name}  <span style={{ fontSize: "10pt" }}>{section.subname}</span></td>
                                         <td className="date text-center">{section.price}</td>
                                         <td className="date text-center">{section.priceCashier}</td>
@@ -262,6 +265,7 @@ export const ClientsDoctor = () => {
                                             +{all.clients[index] && all.clients[index].phone}
                                         </td>
                                         <td className="date text-center" >{new mongoose.Types.ObjectId(section._id).getTimestamp().toLocaleDateString()} {new mongoose.Types.ObjectId(section._id).getTimestamp().toLocaleTimeString()}</td>
+                                        <td className="date text-center" >{section.bron}</td>
                                         <td className="section text-uppercase">  {section.name}  <span style={{ fontSize: "10pt" }}>{section.subname}</span></td>
                                         <td className="date text-center">{section.price}</td>
                                         <td className="date text-center">{section.priceCashier}</td>
