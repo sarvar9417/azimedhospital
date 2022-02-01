@@ -207,9 +207,10 @@ router.get('/doctor/:start/:end/:id', async (req, res) => {
                     new Date(new Date(start).getFullYear(), new Date(start).getMonth(), new Date(start).getDate()),
                 $lt: new Date(new Date(end).getFullYear(),
                     new Date(end).getMonth(), new Date(end).getDate() + 1)
-            },
-            priceCashier: { $ne: 0 }
-        }).sort({ _id: -1 })
+            }
+        })
+            .or([{ priceCashier: { $ne: 0 } }, { bron: "statsionar" }])
+            .sort({ _id: -1 })
         let directions = []
         let clients = []
         for (let i = 0; i < sections.length; i++) {
