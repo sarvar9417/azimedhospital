@@ -214,22 +214,22 @@ export const ClientsPages = () => {
                                                 {++k}
                                             </td>
                                             <td className="fish text-uppercase ps-3 fw-bold text-success">
-                                                {all.clients[index].lastname} {all.clients[index].firstname} {all.clients[index].fathername}
+                                                {all.clients[index] && all.clients[index].lastname} {all.clients[index].firstname} {all.clients[index].fathername}
                                             </td>
                                             <td className="id" >
-                                                {new Date(all.clients[index].born).toLocaleDateString()}
+                                                {all.clients[index] && new Date(all.clients[index].born).toLocaleDateString()}
                                             </td>
                                             <td className="id" >
-                                                {all.clients[index].id}
+                                                {all.clients[index] && all.clients[index].id}
                                             </td>
                                             <td className="phone" >
-                                                +{all.clients[index].phone}
+                                                +{all.clients[index] && all.clients[index].phone}
                                             </td>
                                             <td className="date text-center" >{new mongoose.Types.ObjectId(section._id).getTimestamp().toLocaleDateString()} {new mongoose.Types.ObjectId(section._id).getTimestamp().toLocaleTimeString()}</td>
                                             <td className="section text-uppercase">  {section.name}  <span style={{ fontSize: "10pt" }}>{section.subname}</span></td>
                                             <td className="date text-center">{section.price}</td>
                                             <td className="date text-center">{section.priceCashier}</td>
-                                            <td className="date text-center">{all && all.directions[index].doctorProcient < 101 ? section.price * all.directions[index].doctorProcient / 100 : `${all && all.directions[index] ? all.directions[index].doctorProcient : ""}`}</td>
+                                            <td className="date text-center">{all && all.directions[index] && all.directions[index].doctorProcient < 101 ? section.price * all.directions[index].doctorProcient / 100 : `${all && all.directions[index] ? all.directions[index].doctorProcient : ""}`}</td>
                                         </tr>
                                     )
                                 }
@@ -259,23 +259,23 @@ export const ClientsPages = () => {
                                                 {++kk}
                                             </td>
                                             <td className="fish text-uppercase ps-3 fw-bold text-success">
-                                                {all.clients[index].lastname} {all.clients[index].firstname} {all.clients[index].fathername}
+                                                {all.clients[index] && all.clients[index].lastname} {all.clients[index].firstname} {all.clients[index].fathername}
                                             </td>
                                             <td className="id" >
-                                                {new Date(all.clients[index].born).toLocaleDateString()}
+                                                {all.clients[index] && new Date(all.clients[index].born).toLocaleDateString()}
                                             </td>
                                             <td className="id" >
-                                                {all.clients[index].id}
+                                                {all.clients[index] && all.clients[index].id}
                                             </td>
                                             <td className="phone" >
-                                                +{all.clients[index].phone}
+                                                +{all.clients[index] && all.clients[index].phone}
                                             </td>
                                             <td className="date text-center" >{new mongoose.Types.ObjectId(section._id).getTimestamp().toLocaleDateString()} {new mongoose.Types.ObjectId(section._id).getTimestamp().toLocaleTimeString()}</td>
                                             <td className="section text-uppercase">  {section.name}  <span style={{ fontSize: "10pt" }}>{section.subname}</span></td>
                                             <td className="edit">  <Link to={`/doctor/adoption/${section._id}`} > <FontAwesomeIcon icon={faPenAlt} className="text-dark" /> </Link>   </td>
                                             <td className="date text-center">{section.price}</td>
                                             <td className="date text-center">{section.priceCashier}</td>
-                                            <td className="date text-center">{all && all.directions[index].doctorProcient < 101 ? section.price * all.directions[index].doctorProcient / 100 : `${all && all.directions[index] ? all.directions[index].doctorProcient : ""}`}</td>
+                                            <td className="date text-center">{all && all.directions[index] && all.directions[index].doctorProcient < 101 ? section.price * all.directions[index].doctorProcient / 100 : `${all && all.directions[index] ? all.directions[index].doctorProcient : ""}`}</td>
                                         </tr>
                                     )
                                 }
