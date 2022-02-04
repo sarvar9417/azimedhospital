@@ -64,6 +64,7 @@ app.use('/api/usedroom', require('./routes/usedroom.route'))
 app.use('/api/service', require('./routes/sevices.route'))
 // Payment
 app.use('/api/payment', require('./routes/payment.route'))
+
 if (process.env.NODE_ENV === "production") {
     app.use('/', express.static(path.join(__dirname, 'frontend', 'build')))
 
