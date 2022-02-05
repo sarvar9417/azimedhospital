@@ -783,12 +783,12 @@ router.get('/statsionar', async (req, res) => {
 // /api/auth/connector/
 router.get('/cashierstatsionar', async (req, res) => {
     try {
-        const rooms = await UsedRoom.find({})
+
+        const connectors = await Connector.find({
+            type: "statsionar"
+        })
             .or([{
-                position: "band"
-            },
-            {
-                endDay: {
+                bronday: {
                     $gte:
                         new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()),
                     $lt: new Date(new Date().getFullYear(),
@@ -796,16 +796,12 @@ router.get('/cashierstatsionar', async (req, res) => {
                 }
             },
             {
-                price: { $eq: 0 }
+                position: " "
             }])
-        let connectors = []
         let clients = []
         let sections = []
         let services = []
-        for (let i = 0; i < rooms.length; i++) {
-            const connector = await Connector.findById(rooms[i].connector)
-            connectors.push(connector)
-        }
+        let rooms = []
         for (let i = 0; i < connectors.length; i++) {
             const client = await Clients.findById(connectors[i].client)
             const sec = await Section.find({
@@ -814,6 +810,10 @@ router.get('/cashierstatsionar', async (req, res) => {
             const ser = await Service.find({
                 connector: connectors[i]._id
             })
+            const room = await Room.findOne({
+                connector: connectors[i]._id
+            })
+            rooms.push(room)
             clients.push(client)
             sections.push(sec)
             services.push(ser)
