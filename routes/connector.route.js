@@ -785,10 +785,10 @@ router.get('/cashierstatsionar', async (req, res) => {
     try {
 
         const connectors = await Connector.find({
-            type: "statsionar"
+            type: "statsionar",
         })
             .or([{
-                bronday: {
+                bronDay: {
                     $gte:
                         new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()),
                     $lt: new Date(new Date().getFullYear(),
@@ -796,8 +796,9 @@ router.get('/cashierstatsionar', async (req, res) => {
                 }
             },
             {
-                position: " "
+                position: "davolanishda"
             }])
+            .sort({ _id: -1 })
         let clients = []
         let sections = []
         let services = []
