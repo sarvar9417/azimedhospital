@@ -1,6 +1,6 @@
 {
-    "PORT": 80,
+    "PORT": 8000,
     "mongoUri": "mongodb://localhost/medcenter",
     "jwtSecret": "sarvar9417",
-    "baseUrl": "http://80.249.147.28"
+    "baseUrl": "http://192.168.1.240"
 }
