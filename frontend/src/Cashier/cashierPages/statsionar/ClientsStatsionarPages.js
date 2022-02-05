@@ -212,9 +212,9 @@ export const ClientsStatsionarPages = () => {
                                     <tr key={key} >
                                         <td className="no" >{kk}</td>
                                         <td className="date" >{new mongoose.Types.ObjectId(connector._id).getTimestamp().toLocaleDateString()} {new mongoose.Types.ObjectId(connector._id).getTimestamp().toLocaleTimeString()}</td>
-                                        <td className="fish text-uppercase text-success" style={{ fontWeight: "600" }} >{all && all.clients[key].lastname} {all && all.clients[key].firstname} {all && all.clients[key].fathername}</td>
-                                        <td className="date" >{all && new Date(all.clients[key].born).toLocaleDateString()}</td>
-                                        <td className="id" >{all && all.clients[key].id}</td>
+                                        <td className="fish text-uppercase text-success" style={{ fontWeight: "600" }} >{all && all.clients[key] && all.clients[key].lastname} {all && all.clients[key] && all.clients[key].firstname} {all && all.clients[key] && all.clients[key].fathername}</td>
+                                        <td className="date" >{all && all.clients[key] && new Date(all.clients[key].born).toLocaleDateString()}</td>
+                                        <td className="id" >{all && all.clients[key] && all.clients[key].id}</td>
                                         <td className="phone">{all && all.rooms[key].roomname}</td>
                                         <td className="diagnos ">  {connector.diagnosis} </td>
                                         <td className="phone">{connector.prepaymentCashier}</td>
@@ -236,9 +236,9 @@ export const ClientsStatsionarPages = () => {
                                         <tr key={key} >
                                             <td className="no" >{kk}</td>
                                             <td className="date" >{new mongoose.Types.ObjectId(connector._id).getTimestamp().toLocaleDateString()} {new mongoose.Types.ObjectId(connector._id).getTimestamp().toLocaleTimeString()}</td>
-                                            <td className="fish text-uppercase text-success" style={{ fontWeight: "600" }} >{all && all.clients[key].lastname} {all && all.clients[key].firstname} {all && all.clients[key].fathername}</td>
-                                            <td className="id" >{all && all.clients[key].id}</td>
-                                            <td className="phone">{all && all.rooms[key].roomname}</td>
+                                            <td className="fish text-uppercase text-success" style={{ fontWeight: "600" }} >{all && all.clients[key] && all.clients[key].lastname} {all && all.clients[key] && all.clients[key].firstname} {all && all.clients[key] && all.clients[key].fathername}</td>
+                                            <td className="id" >{all && all.clients[key] && all.clients[key].id}</td>
+                                            <td className="phone">{all && all.clients[key] && all.rooms[key].roomname}</td>
                                             <td className="diagnos ">  {connector.diagnosis} </td>
                                             <td className="phone">{connector.prepaymentCashier}</td>
                                             <td scope="" className="fish text-center">
@@ -272,20 +272,20 @@ export const ClientsStatsionarPages = () => {
                                     <tr key={key} >
                                         <td className="no" >{k}</td>
                                         <td className="date" >{new mongoose.Types.ObjectId(connector._id).getTimestamp().toLocaleDateString()} {new mongoose.Types.ObjectId(connector._id).getTimestamp().toLocaleTimeString()}</td>
-                                        <td className="fish text-success text-uppercase" style={{ fontWeight: "600" }} > {all && all.clients[key].lastname} {all && all.clients[key].firstname} {all && all.clients[key].fathername}</td>
-                                        <td className="date" >{all && new Date(all.clients[key].born).toLocaleDateString()}</td>
-                                        <td className="id" >{all && all.clients[key].id}</td>
-                                        <td className="phone">{all && all.rooms[key].roomname}</td>
+                                        <td className="fish text-success text-uppercase" style={{ fontWeight: "600" }} > {all && all.clients[key] && all.clients[key].lastname} {all && all.clients[key] && all.clients[key].firstname} {all && all.clients[key] && all.clients[key].fathername}</td>
+                                        <td className="date" >{all && all.clients[key] && new Date(all.clients[key].born).toLocaleDateString()}</td>
+                                        <td className="id" >{all && all.clients[key] && all.clients[key].id}</td>
+                                        <td className="phone">{all && all.clients[key] && all.rooms[key].roomname}</td>
                                         <td className="diagnos ">  {connector.diagnosis} </td>
                                         <td className="phone">{connector.prepaymentCashier}</td>
                                         <td scope="" className="fish text-center">
-                                            {connector.position === "davolanishda" ? <Link className='btn button-success' to={`/cashier/prepayment/${all.clients[key]._id}/${connector._id}`}> Qo'shish</Link> : "Xizmat yakunlangan"}
+                                            {connector.position === "davolanishda" ? <Link className='btn button-success' to={`/cashier/prepayment/${all.clients[key] && all.clients[key]._id}/${connector._id}`}> Qo'shish</Link> : "Xizmat yakunlangan"}
                                         </td>
                                         <td scope="" className="cek text-center">
                                             {connector.position === "yakunlangan" ? <Link to={`/cashier/paystatsionar/${all.clients[key]._id}/${connector._id}`} className='btn button-danger' >Qabul qilish </Link> : "Xizmat yakunlanmagan"}
                                         </td>
                                         <td scope="" className="cek text-center">
-                                            <Link to={`/cashier/recieptstatsionar/${all && all.clients[key]._id}/${connector._id}`} > <FontAwesomeIcon icon={faPrint} className="fa-2x" /> </Link>
+                                            <Link to={`/cashier/recieptstatsionar/${all && all.clients[key] &&  all.clients[key]._id}/${connector._id}`} > <FontAwesomeIcon icon={faPrint} className="fa-2x" /> </Link>
                                         </td>
                                     </tr>
                                 )
@@ -296,19 +296,19 @@ export const ClientsStatsionarPages = () => {
                                         <tr key={key} >
                                             <td className="no" >{k}</td>
                                             <td className="date" >{new mongoose.Types.ObjectId(connector._id).getTimestamp().toLocaleDateString()} {new mongoose.Types.ObjectId(connector._id).getTimestamp().toLocaleTimeString()}</td>
-                                            <td className="fish text-uppercase text-success" style={{ fontWeight: "600" }} >{all && all.clients[key].lastname} {all && all.clients[key].firstname} {all && all.clients[key].fathername}</td>
-                                            <td className="id" >{all && all.clients[key].id}</td>
-                                            <td className="phone">{all && all.rooms[key].roomname}</td>
+                                            <td className="fish text-uppercase text-success" style={{ fontWeight: "600" }} >{all && all.clients[key] && all.clients[key].lastname} {all && all.clients[key] && all.clients[key].firstname} {all && all.clients[key] && all.clients[key].fathername}</td>
+                                            <td className="id" >{all && all.clients[key] && all.clients[key].id}</td>
+                                            <td className="phone">{all && all.clients[key] && all.rooms[key].roomname}</td>
                                             <td className="diagnos ">  {connector.diagnosis} </td>
                                             <td className="phone">{connector.prepaymentCashier}</td>
                                             <td scope="" className="fish text-center">
-                                                {connector.position === "davolanishda" ? <Link className='btn button-success' to={`/cashier/prepayment/${all.clients[key]._id}/${connector._id}`}> Qo'shish</Link> : "Xizmat yakunlangan"}
+                                                {connector.position === "davolanishda" ? <Link className='btn button-success' to={`/cashier/prepayment/${all.clients[key] && all.clients[key]._id}/${connector._id}`}> Qo'shish</Link> : "Xizmat yakunlangan"}
                                             </td>
                                             <td scope="" className="cek text-center">
-                                                {connector.position === "yakunlangan" ? <Link to={`/cashier/paystatsionar/${all.clients[key]._id}/${connector._id}`} className='btn button-danger' >Qabul qilish </Link> : "Xizmat yakunlanmagan"}
+                                                {connector.position === "yakunlangan" ? <Link to={`/cashier/paystatsionar/${all.clients[key] && all.clients[key]._id}/${connector._id}`} className='btn button-danger' >Qabul qilish </Link> : "Xizmat yakunlanmagan"}
                                             </td>
                                             <td scope="" className="cek text-center">
-                                                <Link to={`/cashier/recieptstatsionar/${all && all.clients[key]._id}/${connector._id}`} > <FontAwesomeIcon icon={faPrint} className="fa-2x" /> </Link>
+                                                <Link to={`/cashier/recieptstatsionar/${all && all.clients[key] && all.clients[key]._id}/${connector._id}`} > <FontAwesomeIcon icon={faPrint} className="fa-2x" /> </Link>
                                             </td>
                                         </tr>
                                     )
