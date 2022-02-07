@@ -52,7 +52,7 @@ export const ClientsPages = () => {
 
     const getId = useCallback(async () => {
         try {
-            const fetch = await request(`/api/connector/reseption/${clientId}`, 'GET', null, {
+            const fetch = await request(`/api/connector/doctor/${startDate}/${endDate}/${doctorId}/${clientId}`, 'GET', null, {
                 Authorization: `Bearer ${auth.token}`
             })
             setAll(fetch)
@@ -214,7 +214,7 @@ export const ClientsPages = () => {
                                                 {++k}
                                             </td>
                                             <td className="fish text-uppercase ps-3 fw-bold text-success">
-                                                {all.clients[index] && all.clients[index].lastname} {all.clients[index].firstname} {all.clients[index].fathername}
+                                                {all.clients[index] && all.clients[index].lastname} {all.clients[index] && all.clients[index].firstname} {all.clients[index] && all.clients[index].fathername}
                                             </td>
                                             <td className="id" >
                                                 {all.clients[index] && new Date(all.clients[index].born).toLocaleDateString()}

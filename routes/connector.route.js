@@ -51,6 +51,46 @@ router.post('/register', async (req, res) => {
 })
 
 // /api/auth/connector/
+router.get('/doctor/:start/:end/:id/:clientid', async (req, res) => {
+    try {
+        const start = new Date(req.params.start)
+        const end = new Date(req.params.end)
+        const id = req.params.id
+        const doctor = await Doctor.findById(id)
+        const clientid = await Clients.findOne({
+            id: req.params.clientid
+        })
+        const sections = await Section.find({
+            client: clientid._id,
+            name: doctor.section,
+            bronDay: {
+                $gte:
+                    new Date(new Date(start).getFullYear(), new Date(start).getMonth(), new Date(start).getDate()),
+                $lt: new Date(new Date(end).getFullYear(),
+                    new Date(end).getMonth(), new Date(end).getDate() + 1)
+            }
+        })
+            .or([{ priceCashier: { $ne: 0 } }, { bron: "statsionar" }])
+            .sort({ _id: -1 })
+        let directions = []
+        let clients = []
+        for (let i = 0; i < sections.length; i++) {
+            const client = await Clients.findById(sections[i].client)
+            const direction = await Direction.findOne({
+                section: sections[i].name,
+                subsection: sections[i].subname
+            })
+            clients.push(client)
+            directions.push(direction)
+        }
+        res.json({ clients, sections, directions })
+    } catch (e) {
+        res.status(500).json({ message: 'Serverda xatolik yuz berdi' })
+    }
+})
+
+
+// /api/auth/connector/
 router.get('/director/:start/:end/:section', async (req, res) => {
     try {
         const start = new Date(req.params.start)

@@ -10,6 +10,7 @@ import { Fizioterapevt } from './Fizioterapevt/Fizioterapevt'
 import { Medsestra } from './Medsestra/Medsestra'
 import { RegistorDirector } from './RegistorDirector'
 import { Reseption } from './Reseption/Reseption'
+import { Reseption2 } from './Reseption2/Reseption2'
 import { Sayt } from './Sayt/sayt'
 import { Turn } from './Turn/Turn'
 
@@ -18,6 +19,9 @@ export const useRoutes = () => {
         <Switch>
             <Route path="/reseption"  >
                 <Reseption />
+            </Route>
+            <Route path="/reseption2"  >
+                <Reseption2 />
             </Route>
             <Route path="/doctor" >
                 <Doctor />

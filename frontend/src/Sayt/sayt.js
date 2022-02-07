@@ -50,7 +50,8 @@ export const Sayt = () => {
             </div>
             <div className='row mt-5'>
                 <div className='col-12 text-center'>
-                    <Link className='btn btn-warning px-5' to="/counteragent"> Kontragent </Link>
+                    <Link className='btn btn-warning px-4 me-3' to="/counteragent"> Kontragent </Link>
+                    <Link className='btn btn-info px-4' to="/reseption2"> Reseption2 </Link>
                 </div>
             </div>
             <Turn />
