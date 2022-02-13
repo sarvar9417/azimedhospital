@@ -247,10 +247,10 @@ export const ClientsStatsionarPages = () => {
                                                 {connector.position}
                                             </td>
                                             <td scope="" className="cek text-center">
-                                                {all.rooms[key] && new Date(all.rooms[key].beginDay).toLocaleDateString()}
+                                                {all.rooms && all.rooms[key] && new Date(all.rooms[key].beginDay).toLocaleDateString()}
                                             </td>
                                             <td scope="" className="cek text-center">
-                                                {all.rooms[key] && new Date(all.rooms[key].endDay).toLocaleDateString()}
+                                                {all.rooms && all.rooms[key] && new Date(all.rooms[key].endDay).toLocaleDateString()}
                                             </td>
                                         </tr>
                                     )

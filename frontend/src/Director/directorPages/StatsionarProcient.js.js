@@ -34,6 +34,7 @@ export const StatsionarProcient = () => {
     const [clientId, setClientId] = useState('')
     const [all, setAll] = useState()
     const [datas, setDatas] = useState()
+
     const getConnectors = useCallback(async () => {
         try {
             const fetch = await request(`/api/connector/statsionarprocient/${startDate}/${endDate}`, 'GET', null, {
