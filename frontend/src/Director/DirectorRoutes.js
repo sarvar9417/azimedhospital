@@ -47,6 +47,7 @@ import { RecieptStatsionar } from './directorPages/RecieptStatsionar'
 import { ChartsMarketing } from './marketing/ChartsMarketing'
 import { PaymentsCounterAgents } from './marketing/counteragents/PaymentsCounterAgents'
 import { CallCenterClientsPages } from './marketing/callcenter/CallCenterClientsPages'
+import { StatsionarProcient } from './directorPages/StatsionarProcient.js'
 
 export const DirectorRoutes = (isAuthenticated) => {
     if (isAuthenticated) {
@@ -160,6 +161,9 @@ export const DirectorRoutes = (isAuthenticated) => {
                     </Route>
                     <Route path='/director/statsionar' >
                         <RouterComponent component={<ClientsStatsionarPages />} menu={true} />
+                    </Route>
+                    <Route path='/director/statsionarprocient' >
+                        <RouterComponent component={<StatsionarProcient />} menu={true} />
                     </Route>
                     <Route path='/director/recieptstatsionar/:id/:connector' >
                         <RouterComponent component={<RecieptStatsionar />} menu={true} />

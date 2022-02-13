@@ -52,7 +52,6 @@ export const ClientsStatsionarPages = () => {
             const fetch = await request(`/api/connector/cashierstatsionar/${startDate}/${endDate}`, 'GET', null, {
                 Authorization: `Bearer ${auth.token}`
             })
-            console.log(fetch)
             setAll(fetch)
         } catch (e) {
             notify(e)
@@ -156,7 +155,14 @@ export const ClientsStatsionarPages = () => {
                 </div>
             </div>
             <div className="row">
-                <div className="offset-11 col-1 text-end">
+                <div className='col-4 '>
+                    <Link
+                        to={`/director/statsionarprocient`}
+                        className="btn btn-info">
+                        Shifokor va medsestra ulushi
+                    </Link>
+                </div>
+                <div className="offset-7 col-1 text-end">
                     <ReactHTMLTableToExcel
                         className="btn text-white mb-2 btn-success"
                         table="reseptionReport"
@@ -203,26 +209,26 @@ export const ClientsStatsionarPages = () => {
                         <th scope="" className="cek text-center"> Ketgan vaqti<FontAwesomeIcon icon={faSort} /></th>
                     </thead>
                     <tbody className="" >
-                        {all && all.connectors.map((connector, key) => {
+                        {all && all.connectors && all.connectors.map((connector, key) => {
                             if (type === "all") {
                                 kk++
                                 return (
                                     <tr key={key} >
                                         <td className="no" >{kk}</td>
                                         <td className="date" >{new mongoose.Types.ObjectId(connector._id).getTimestamp().toLocaleDateString()} {new mongoose.Types.ObjectId(connector._id).getTimestamp().toLocaleTimeString()}</td>
-                                        <td className="fish text-uppercase text-success" style={{ fontWeight: "600" }} >{all && all.clients[key].lastname} {all && all.clients[key].firstname} {all && all.clients[key].fathername}</td>
-                                        <td className="date" >{all && new Date(all.clients[key].born).toLocaleDateString()}</td>
-                                        <td className="id" >{all && all.clients[key].id}</td>
-                                        <td className="phone">+{all && all.clients[key].phone}</td>
+                                        <td className="fish text-uppercase text-success" style={{ fontWeight: "600" }} >{all && all.clients[key] && all.clients[key].lastname} {all && all.clients[key] && all.clients[key].firstname} {all && all.clients[key] && all.clients[key].fathername}</td>
+                                        <td className="date" >{all && all.clients[key] && new Date(all.clients[key].born).toLocaleDateString()}</td>
+                                        <td className="id" >{all && all.clients[key] && all.clients[key].id}</td>
+                                        <td className="phone">+{all && all.clients[key] && all.clients[key].phone}</td>
                                         <td className="diagnos ">  {connector.diagnosis} </td>
                                         <td scope="" className="fish text-center">
                                             {connector.position}
                                         </td>
                                         <td scope="" className="cek text-center">
-                                            {new Date(all.rooms[key].beginDay).toLocaleDateString()}
+                                            {all.rooms[key] && new Date(all.rooms[key].beginDay).toLocaleDateString()}
                                         </td>
                                         <td scope="" className="cek text-center">
-                                            {new Date(all.rooms[key].endDay).toLocaleDateString()}
+                                            {all.rooms[key] && new Date(all.rooms[key].endDay).toLocaleDateString()}
                                         </td>
                                     </tr>
                                 )
@@ -233,18 +239,18 @@ export const ClientsStatsionarPages = () => {
                                         <tr key={key} >
                                             <td className="no" >{kk}</td>
                                             <td className="date" >{new mongoose.Types.ObjectId(connector._id).getTimestamp().toLocaleDateString()} {new mongoose.Types.ObjectId(connector._id).getTimestamp().toLocaleTimeString()}</td>
-                                            <td className="fish text-uppercase text-success" style={{ fontWeight: "600" }} >{all && all.clients[key].lastname} {all && all.clients[key].firstname} {all && all.clients[key].fathername}</td>
-                                            <td className="id" >{all && all.clients[key].id}</td>
-                                            <td className="phone">+{all && all.clients[key].phone}</td>
+                                            <td className="fish text-uppercase text-success" style={{ fontWeight: "600" }} >{all && all.clients[key] && all.clients[key].lastname} {all && all.clients[key] && all.clients[key].firstname} {all && all.clients[key] && all.clients[key].fathername}</td>
+                                            <td className="id" >{all && all.clients[key] && all.clients[key].id}</td>
+                                            <td className="phone">+{all && all.clients[key] && all.clients[key].phone}</td>
                                             <td className="diagnos ">  {connector.diagnosis} </td>
                                             <td scope="" className="fish text-center">
                                                 {connector.position}
                                             </td>
                                             <td scope="" className="cek text-center">
-                                                {new Date(all.rooms[key].beginDay).toLocaleDateString()}
+                                                {all.rooms[key] && new Date(all.rooms[key].beginDay).toLocaleDateString()}
                                             </td>
                                             <td scope="" className="cek text-center">
-                                                {new Date(all.rooms[key].endDay).toLocaleDateString()}
+                                                {all.rooms[key] && new Date(all.rooms[key].endDay).toLocaleDateString()}
                                             </td>
                                         </tr>
                                     )
@@ -268,10 +274,10 @@ export const ClientsStatsionarPages = () => {
                                     <tr key={key} >
                                         <td className="no" >{k}</td>
                                         <td className="date" >{new mongoose.Types.ObjectId(connector._id).getTimestamp().toLocaleDateString()} {new mongoose.Types.ObjectId(connector._id).getTimestamp().toLocaleTimeString()}</td>
-                                        <td className="fish text-success text-uppercase" style={{ fontWeight: "600" }} > {all && all.clients[key].lastname} {all && all.clients[key].firstname} {all && all.clients[key].fathername}</td>
-                                        <td className="date" >{all && new Date(all.clients[key].born).toLocaleDateString()}</td>
-                                        <td className="id" >{all && all.clients[key].id}</td>
-                                        <td className="phone">+{all && all.clients[key].phone}</td>
+                                        <td className="fish text-success text-uppercase" style={{ fontWeight: "600" }} > {all && all.clients[key] && all.clients[key].lastname} {all && all.clients[key] && all.clients[key].firstname} {all && all.clients[key] && all.clients[key].fathername}</td>
+                                        <td className="date" >{all && all.clients[key] && new Date(all.clients[key].born).toLocaleDateString()}</td>
+                                        <td className="id" >{all && all.clients[key] && all.clients[key].id}</td>
+                                        <td className="phone">+{all && all.clients[key] && all.clients[key].phone}</td>
                                         <td className="diagnos ">  {connector.diagnosis} </td>
                                         <td scope="" className="fish text-center">
                                             {connector.prepaymentCashier}
@@ -280,7 +286,7 @@ export const ClientsStatsionarPages = () => {
                                             {connector.position}
                                         </td>
                                         <td scope="" className="cek text-center">
-                                            <Link to={`/director/recieptstatsionar/${all && all.clients[key]._id}/${connector._id}`} > <FontAwesomeIcon icon={faPrint} className="fa-2x" /> </Link>
+                                            <Link to={`/director/recieptstatsionar/${all && all.clients[key] && all.clients[key]._id}/${connector._id}`} > <FontAwesomeIcon icon={faPrint} className="fa-2x" /> </Link>
                                         </td>
                                     </tr>
                                 )
@@ -291,9 +297,9 @@ export const ClientsStatsionarPages = () => {
                                         <tr key={key} >
                                             <td className="no" >{k}</td>
                                             <td className="date" >{new mongoose.Types.ObjectId(connector._id).getTimestamp().toLocaleDateString()} {new mongoose.Types.ObjectId(connector._id).getTimestamp().toLocaleTimeString()}</td>
-                                            <td className="fish text-uppercase text-success" style={{ fontWeight: "600" }} >{all && all.clients[key].lastname} {all && all.clients[key].firstname} {all && all.clients[key].fathername}</td>
-                                            <td className="id" >{all && all.clients[key].id}</td>
-                                            <td className="phone">+{all && all.clients[key].phone}</td>
+                                            <td className="fish text-uppercase text-success" style={{ fontWeight: "600" }} >{all && all.clients[key] && all.clients[key].lastname} {all && all.clients[key] && all.clients[key].firstname} {all && all.clients[key] && all.clients[key].fathername}</td>
+                                            <td className="id" >{all && all.clients[key] && all.clients[key].id}</td>
+                                            <td className="phone">+{all && all.clients[key] && all.clients[key].phone}</td>
                                             <td className="diagnos ">  {connector.diagnosis} </td>
                                             <td scope="" className="fish text-center">
                                                 {connector.prepaymentCashier}
@@ -302,7 +308,7 @@ export const ClientsStatsionarPages = () => {
                                                 {connector.position}
                                             </td>
                                             <td scope="" className="cek text-center">
-                                                <Link to={`/director/recieptstatsionar/${all && all.clients[key]._id}/${connector._id}`} > <FontAwesomeIcon icon={faPrint} className="fa-2x" /> </Link>
+                                                <Link to={`/director/recieptstatsionar/${all && all.clients[key] && all.clients[key]._id}/${connector._id}`} > <FontAwesomeIcon icon={faPrint} className="fa-2x" /> </Link>
                                             </td>
                                         </tr>
                                     )

@@ -424,6 +424,39 @@ router.get('/cashierstatsionar/:start/:end', async (req, res) => {
 })
 
 // /api/auth/connector/
+router.get('/statsionarprocient/:start/:end', async (req, res) => {
+    try {
+        const start = new Date(req.params.start)
+        const end = new Date(req.params.end)
+        const connectors = await Connector.find({
+            bronDay: {
+                $gte:
+                    new Date(new Date(start).getFullYear(), new Date(start).getMonth(), new Date(start).getDate()),
+                $lt: new Date(new Date(end).getFullYear(),
+                    new Date(end).getMonth(), new Date(end).getDate() + 1)
+            },
+            type: "statsionar",
+            position: "yakunlangan"
+
+        })
+            .sort({ _id: -1 })
+        let datas = []
+        for (let i = 0; i < connectors.length; i++) {
+            let client = await Clients.findById(connectors[i].client)
+
+            const room = await UsedRoom.findOne({
+                connector: connectors[i]._id
+            })
+            let data = { client, connector: connectors[i], usedroom: room }
+            datas.push(data)
+        }
+        res.json({ datas })
+    } catch (e) {
+        res.status(500).json({ message: 'Serverda xatolik yuz berdi' })
+    }
+})
+
+// /api/auth/connector/
 router.get('/marketing/:start/:end', async (req, res) => {
     try {
         const start = new Date(req.params.start)
