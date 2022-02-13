@@ -879,8 +879,8 @@ router.get('/reseption', async (req, res) => {
         })
             .or([{ type: "offline" }, { type: "online" }, { type: "callcenter" }])
             .sort({ _id: -1 })
-            .skip((pagenumber - 1) * 15)
-            .limit(15)
+            .skip((pagenumber - 1) * 40)
+            .limit(40)
         let clients = []
         let sections = []
         let services = []

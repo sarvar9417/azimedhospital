@@ -410,7 +410,6 @@ export const CheckCashier = () => {
 
     const checkPrices = () => {
         let k = 0
-
         sections && sections.map(section => {
             if (section.price !== section.priceCashier && section.commentCashier.length < 6) {
                 k++
