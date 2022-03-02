@@ -78,7 +78,7 @@ export const RecieptStatsionar = () => {
             if (data.position === "band") {
                 setBronDay(Math.abs((new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()) - new Date(new Date(data.beginDay).getFullYear(), new Date(data.beginDay).getMonth(), new Date(data.beginDay).getDate())) / oneDay) + 1)
             } else {
-                setBronDay(Math.abs((new Date(new Date(data.beginDay).getFullYear(), new Date(data.beginDay).getMonth(), new Date(data.endDay).getDate()) - new Date(new Date(data.beginDay).getFullYear(), new Date(data.beginDay).getMonth(), new Date(data.beginDay).getDate())) / oneDay) + 1)
+                setBronDay(Math.abs((new Date(new Date(data.endDay).getFullYear(), new Date(data.endDay).getMonth(), new Date(data.endDay).getDate()) - new Date(new Date(data.beginDay).getFullYear(), new Date(data.beginDay).getMonth(), new Date(data.beginDay).getDate())) / oneDay) + 1)
             }
             setRoom(data)
         } catch (e) {
