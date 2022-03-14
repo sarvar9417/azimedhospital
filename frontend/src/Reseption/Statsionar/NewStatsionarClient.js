@@ -311,6 +311,9 @@ export const NewStatsionarClient = () => {
     if (!room) {
       return notify("Diqqat! Mijoz xonasini ko'rsatmadingiz. Agar xonasi aniq bo'lmasa aniq emas turini tanlang")
     }
+    if (!doctor) {
+      return notify("Diqqat! Mijozga shifokor biriktirish majburiy!")
+    }
     window.scrollTo({ top: 0 })
     setModal(true)
   }
@@ -628,7 +631,7 @@ export const NewStatsionarClient = () => {
           />
         </div>
       </div>
-      
+
 
       <div className="text-end">
         {

@@ -190,7 +190,8 @@ export const ClientsStatsionarPages = () => {
                                 <th scope="" className="date text-center" >Tug'ilgan yili <FontAwesomeIcon icon={faSort} /></th>
                                 <th scope="" className="id text-center">ID <FontAwesomeIcon icon={faSort} /></th>
                                 <th scope="" className="phone text-center">Tel <FontAwesomeIcon icon={faSort} /></th>
-                                <th scope="" className="diagnos text-center">Tashxis <FontAwesomeIcon icon={faSort} /></th>
+                                <th scope="" className="phone text-center">Tashxis <FontAwesomeIcon icon={faSort} /></th>
+                                <th scope="" className="phone text-center">Shifokor <FontAwesomeIcon icon={faSort} /></th>
                                 <th scope="" className="fish text-center">Xizmat qo'shish <FontAwesomeIcon icon={faSort} /></th>
                                 <th scope="" className="cek text-center"> Tugatish   </th>
                                 <th scope="" className="cek text-center"> Chek <FontAwesomeIcon icon={faSort} /></th>
@@ -210,7 +211,8 @@ export const ClientsStatsionarPages = () => {
                         <th scope="" className="date text-center" >Tug'ilgan yili <FontAwesomeIcon icon={faSort} /></th>
                         <th scope="" className="id text-center">ID <FontAwesomeIcon icon={faSort} /></th>
                         <th scope="" className="phone text-center">Tel <FontAwesomeIcon icon={faSort} /></th>
-                        <th scope="" className="diagnos text-center">Tashxis <FontAwesomeIcon icon={faSort} /></th>
+                        <th scope="" className="phone text-center">Tashxis <FontAwesomeIcon icon={faSort} /></th>
+                        <th scope="" className="phone text-center">Shifokor <FontAwesomeIcon icon={faSort} /></th>
                         <th scope="" className="fish text-center"> Holati <FontAwesomeIcon icon={faSort} /></th>
                         <th scope="" className="cek text-center"> Kelgan vaqti  </th>
                         <th scope="" className="cek text-center"> Ketgan vaqti<FontAwesomeIcon icon={faSort} /></th>
@@ -228,6 +230,7 @@ export const ClientsStatsionarPages = () => {
                                         <td className="id" >{all && all.clients[key].id}</td>
                                         <td className="phone">+{all && all.clients[key].phone}</td>
                                         <td className="diagnos ">  {connector.diagnosis} </td>
+                                        <td className="diagnos ">  {connector.doctor} </td>
                                         <td scope="" className="fish text-center">
                                             {connector.position}
                                         </td>
@@ -250,6 +253,7 @@ export const ClientsStatsionarPages = () => {
                                             <td className="id" >{all && all.clients[key].id}</td>
                                             <td className="phone">+{all && all.clients[key].phone}</td>
                                             <td className="diagnos ">  {connector.diagnosis} </td>
+                                            <td className="diagnos ">  {connector.doctor} </td>
                                             <td scope="" className="fish text-center">
                                                 {connector.position}
                                             </td>
@@ -285,7 +289,8 @@ export const ClientsStatsionarPages = () => {
                                         <td className="date" >{all && new Date(all.clients[key].born).toLocaleDateString()}</td>
                                         <td className="id" >{all && all.clients[key].id}</td>
                                         <td className="phone">+{all && all.clients[key].phone}</td>
-                                        <td className="diagnos ">  {connector.diagnosis} </td>
+                                        <td className="phone">  {connector.diagnosis} </td>
+                                        <td className="phone">  {connector.doctor} </td>
                                         <td scope="" className="fish text-center">
                                             {connector.position === "yakunlangan" ? "Xizmat" : <Link className='btn button-success' to={`/reseption/addstatsionar/${connector._id}`}> Qo'shish</Link>}
                                         </td>
@@ -310,7 +315,8 @@ export const ClientsStatsionarPages = () => {
                                             <td className="fish text-uppercase text-success" style={{ fontWeight: "600" }} >{all && all.clients[key].lastname} {all && all.clients[key].firstname} {all && all.clients[key].fathername}</td>
                                             <td className="id" >{all && all.clients[key].id}</td>
                                             <td className="phone">+{all && all.clients[key].phone}</td>
-                                            <td className="diagnos ">  {connector.diagnosis} </td>
+                                            <td className="phone">  {connector.diagnosis} </td>
+                                            <td className="phone">  {connector.doctor} </td>
                                             <td scope="" className="fish text-center">
                                                 {connector.position === "yakunlangan" ? "Xizmat" : <Link className='btn button-success' to={`/reseption/addstatsionar/${connector._id}`}> Qo'shish</Link>}
                                             </td>

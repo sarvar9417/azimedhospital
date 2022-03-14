@@ -274,6 +274,27 @@ export const EditStatsionarClient = () => {
       notify(e)
     }
   }
+
+  const editConnector = async (e) => {
+    try {
+      const data = await request(`/api/connector/cashier/${connectorId}`, "PATCH", {
+        client: connector.client,
+        source: connector.client,
+        counteragent: connector.counteragent,
+        type: connector.type,
+        position: connector.position,
+        doctor: e.value,
+        diagnosis: connector.diagnosis,
+        bronDay: connector.bronDay,
+        prepaymentCashier: connector.prepaymentCashier
+      }, {
+        Authorization: `Bearer ${auth.token}`
+      })
+      toast.success("Shifokor o'zgartirildi")
+    } catch (e) {
+      notify(e)
+    }
+  }
   // =================================================================================
   // =================================================================================
 
@@ -326,6 +347,34 @@ export const EditStatsionarClient = () => {
   // =================================================================================
 
 
+  // =================================================================================
+  // =================================================================================
+  // Statsionar doctor
+
+  const [doctors, setDoctors] = useState()
+  const [doctor, setDoctor] = useState()
+  const getDoctors = useCallback(async () => {
+    try {
+      const fetch = await request("/api/auth/doctor/historyclient", "GET", null, {
+        Authorization: `Bearer ${auth.token}`
+      })
+      let doc = []
+      fetch.map((d) => {
+        doc.push({
+          label: d.lastname + " " + d.firstname,
+          value: d.lastname + " " + d.firstname,
+        })
+      })
+      setDoctors(doc)
+    } catch (e) {
+      notify(e)
+    }
+  }, [request, auth, setDoctors])
+
+  // =================================================================================
+  // =================================================================================
+
+
   useEffect(() => {
     if (!options) {
       getOptions()
@@ -348,6 +397,9 @@ export const EditStatsionarClient = () => {
     }
     if (!wareconnectors) {
       getWareConnectors()
+    }
+    if (!doctors) {
+      getDoctors()
     }
   }, [notify, clearError])
 
@@ -458,7 +510,6 @@ export const EditStatsionarClient = () => {
             components={animatedComponents}
             options={rooms && rooms}
             escapeClearsValue="true"
-            placeholder={room && room.roomname}
           />
         </div>
         <div className="col-6 mb-2 input_box">
@@ -474,6 +525,17 @@ export const EditStatsionarClient = () => {
             type="date"
             className="form-control" />
           <label className="labels" style={{ top: "-7px", fontSize: "12px", fontWeight: "500" }}>Xona band qilingan sana</label>
+        </div>
+        <div className="col-6 mb-2 input_box">
+          <Select
+
+            placeholder="Biriktirilgan shifokor"
+            className="m-0 p-0"
+            onChange={editConnector}
+            components={animatedComponents}
+            options={doctors && doctors}
+            escapeClearsValue="true"
+          />
         </div>
       </div>
 

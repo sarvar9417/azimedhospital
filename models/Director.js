@@ -8,7 +8,7 @@ const director = new Schema({
     lastname: { type: String, required: true },
     fathername: { type: String },
     phone: { type: Number },
-    born: { type: Date },
+    born: { type: String },
     section: { type: String },
     image: { type: String }
 })
@@ -22,7 +22,7 @@ function validateDirector(director) {
         fathername: Joi.string(),
         section: Joi.string(),
         phone: Joi.number(),
-        born: Joi.date(),
+        born: Joi.string(),
         image: Joi.string()
     })
     return schema.validate(director)
