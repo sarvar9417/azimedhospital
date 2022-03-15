@@ -332,9 +332,9 @@ export const CheckStatsionar = () => {
                 Authorization: `Bearer ${auth.token}`
             })
             if (data.position === "band") {
-                setBronDay(Math.abs((new Date(new Date().getFullYear(), new Date().getMonth() + 1, new Date().getDate()) - new Date(new Date(data.beginDay).getFullYear(), new Date(data.beginDay).getMonth() + 1, new Date(data.beginDay).getDate())) / oneDay) + 1)
+                setBronDay(Math.abs((new Date(new Date().getFullYear(), new Date().getMonth() , new Date().getDate()) - new Date(new Date(data.beginDay).getFullYear(), new Date(data.beginDay).getMonth(), new Date(data.beginDay).getDate())) / oneDay) + 1)
             } else {
-                setBronDay(Math.abs((new Date(new Date(data.beginDay).getFullYear(), new Date(data.beginDay).getMonth() + 1, new Date(data.endDay).getDate()) - new Date(new Date(data.beginDay).getFullYear(), new Date(data.beginDay).getMonth() + 1, new Date(data.beginDay).getDate())) / oneDay) + 1)
+                setBronDay(Math.abs((new Date(new Date(data.endDay).getFullYear(), new Date(data.endDay).getMonth(), new Date(data.endDay).getDate()) - new Date(new Date(data.beginDay).getFullYear(), new Date(data.beginDay).getMonth() , new Date(data.beginDay).getDate())) / oneDay) + 1)
             }
             setRoom(data)
         } catch (e) {
@@ -533,7 +533,7 @@ export const CheckStatsionar = () => {
                         </div>
                         <div className='col-md-3 col-4 text-center'>
                             <label className='mx-3'>
-                                <input onChange={setAllPayment} id='cash' type="radio" name="payment" id='cash' /> Naqt
+                                <input onChange={setAllPayment} id='cash' type="radio" name="payment" /> Naqt
                             </label>
                             <input
                                 value={payment.cash}

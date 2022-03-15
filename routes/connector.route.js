@@ -345,35 +345,47 @@ router.get('/statsionar/:start/:end', async (req, res) => {
     try {
         const start = new Date(req.params.start)
         const end = new Date(req.params.end)
-        const connectors = await Connector.find({
-            bronDay: {
+
+        const rooms = await UsedRoom.find({
+            endDay: {
                 $gte:
                     new Date(new Date(start).getFullYear(), new Date(start).getMonth(), new Date(start).getDate()),
                 $lt: new Date(new Date(end).getFullYear(),
                     new Date(end).getMonth(), new Date(end).getDate() + 1)
-            },
-            type: "statsionar"
+            }
         })
             .sort({ _id: -1 })
+        // const connectors = await Connector.find({
+        //     bronDay: {
+        //         $gte:
+        //             new Date(new Date(start).getFullYear(), new Date(start).getMonth(), new Date(start).getDate()),
+        //         $lt: new Date(new Date(end).getFullYear(),
+        //             new Date(end).getMonth(), new Date(end).getDate() + 1)
+        //     },
+        //     type: "statsionar"
+        // })
+        //     .sort({ _id: -1 })
         let clients = []
         let sections = []
         let services = []
-        let rooms = []
-        for (let i = 0; i < connectors.length; i++) {
-            const client = await Clients.findById(connectors[i].client)
+        let connectors = []
+        // let rooms = []
+        for (let i = 0; i < rooms.length; i++) {
+            const connector = await Connector.findById(rooms[i].connector)
+            const client = await Clients.findById(rooms[i].client)
             const sec = await Section.find({
-                connector: connectors[i]._id
+                connector: connector._id
             })
             const ser = await Service.find({
-                connector: connectors[i]._id
+                connector: connector._id
             })
             const room = await UsedRoom.findOne({
-                connector: connectors[i]._id
+                connector: connector._id
             })
             clients.push(client)
             sections.push(sec)
             services.push(ser)
-            rooms.push(room)
+            connectors.push(connector)
         }
         res.json({ connectors, clients, sections, services, rooms })
     } catch (e) {
@@ -386,36 +398,70 @@ router.get('/cashierstatsionar/:start/:end', async (req, res) => {
     try {
         const start = new Date(req.params.start)
         const end = new Date(req.params.end)
-        const connectors = await Connector.find({
-            bronDay: {
+        // const connectors = await Connector.find({
+        //     bronDay: {
+        //         $gte:
+        //             new Date(new Date(start).getFullYear(), new Date(start).getMonth(), new Date(start).getDate()),
+        //         $lt: new Date(new Date(end).getFullYear(),
+        //             new Date(end).getMonth(), new Date(end).getDate() + 1)
+        //     },
+        //     type: "statsionar",
+
+        // })
+        //     .sort({ _id: -1 })
+        // let clients = []
+        // let sections = []
+        // let services = []
+        // let rooms = []
+        // for (let i = 0; i < connectors.length; i++) {
+        //     const client = await Clients.findById(connectors[i].client)
+        //     const sec = await Section.find({
+        //         connector: connectors[i]._id
+        //     })
+        //     const ser = await Service.find({
+        //         connector: connectors[i]._id
+        //     })
+        //     const room = await UsedRoom.findOne({
+        //         connector: connectors[i]._id
+        //     })
+        //     clients.push(client)
+        //     sections.push(sec)
+        //     services.push(ser)
+        //     rooms.push(room)
+        // }
+        // res.json({ connectors, clients, sections, services, rooms })
+
+        const rooms = await UsedRoom.find({
+            endDay: {
                 $gte:
                     new Date(new Date(start).getFullYear(), new Date(start).getMonth(), new Date(start).getDate()),
                 $lt: new Date(new Date(end).getFullYear(),
                     new Date(end).getMonth(), new Date(end).getDate() + 1)
-            },
-            type: "statsionar",
-
+            }
         })
             .sort({ _id: -1 })
+
         let clients = []
         let sections = []
         let services = []
-        let rooms = []
-        for (let i = 0; i < connectors.length; i++) {
-            const client = await Clients.findById(connectors[i].client)
+        let connectors = []
+        // let rooms = []
+        for (let i = 0; i < rooms.length; i++) {
+            const connector = await Connector.findById(rooms[i].connector)
+            const client = await Clients.findById(rooms[i].client)
             const sec = await Section.find({
-                connector: connectors[i]._id
+                connector: connector._id
             })
             const ser = await Service.find({
-                connector: connectors[i]._id
+                connector: connector._id
             })
             const room = await UsedRoom.findOne({
-                connector: connectors[i]._id
+                connector: connector._id
             })
             clients.push(client)
             sections.push(sec)
             services.push(ser)
-            rooms.push(room)
+            connectors.push(connector)
         }
         res.json({ connectors, clients, sections, services, rooms })
     } catch (e) {
@@ -428,26 +474,33 @@ router.get('/statsionarprocient/:start/:end', async (req, res) => {
     try {
         const start = new Date(req.params.start)
         const end = new Date(req.params.end)
-        const connectors = await Connector.find({
-            bronDay: {
+
+        const rooms = await UsedRoom.find({
+            endDay: {
                 $gte:
                     new Date(new Date(start).getFullYear(), new Date(start).getMonth(), new Date(start).getDate()),
                 $lt: new Date(new Date(end).getFullYear(),
                     new Date(end).getMonth(), new Date(end).getDate() + 1)
-            },
-            type: "statsionar",
-            position: "yakunlangan"
-
+            }
         })
             .sort({ _id: -1 })
-        let datas = []
-        for (let i = 0; i < connectors.length; i++) {
-            let client = await Clients.findById(connectors[i].client)
+        // const connectors = await Connector.find({
+        //     bronDay: {
+        //         $gte:
+        //             new Date(new Date(start).getFullYear(), new Date(start).getMonth(), new Date(start).getDate()),
+        //         $lt: new Date(new Date(end).getFullYear(),
+        //             new Date(end).getMonth(), new Date(end).getDate() + 1)
+        //     },
+        //     type: "statsionar",
+        //     position: "yakunlangan"
 
-            const room = await UsedRoom.findOne({
-                connector: connectors[i]._id
-            })
-            let data = { client, connector: connectors[i], usedroom: room }
+        // })
+        //     .sort({ _id: -1 })
+        let datas = []
+        for (let i = 0; i < rooms.length; i++) {
+            let client = await Clients.findById(rooms[i].client)
+            let connector = await Connector.findById(rooms[i].connector)
+            let data = { client, connector: connector, usedroom: rooms[i]}
             datas.push(data)
         }
         res.json({ datas })
