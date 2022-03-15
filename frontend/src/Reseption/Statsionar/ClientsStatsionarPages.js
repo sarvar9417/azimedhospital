@@ -195,7 +195,7 @@ export const ClientsStatsionarPages = () => {
                                 <th scope="" className="fish text-center">Xizmat qo'shish <FontAwesomeIcon icon={faSort} /></th>
                                 <th scope="" className="cek text-center"> Tugatish   </th>
                                 <th scope="" className="cek text-center"> Chek <FontAwesomeIcon icon={faSort} /></th>
-                                {/* <th scope="" className="cek text-center"> Delete <FontAwesomeIcon icon={faSort} /></th> */}
+                                <th scope="" className="cek text-center"> Delete <FontAwesomeIcon icon={faSort} /></th>
                             </tr>
                         </thead>
                     </table>
@@ -301,7 +301,7 @@ export const ClientsStatsionarPages = () => {
                                             <Link to={`/reseption/statsionarreciept/${all && all.clients[key]._id}/${connector._id}`} > <FontAwesomeIcon icon={faPrint} className="fa-2x" /> </Link>
                                         </td>
                                         <td>
-                                            {/* <button onClick={() => { Delete(connector._id) }} className='btn btn-danger'>Delete</button> */}
+                                            <button onClick={() => { Delete(connector._id) }} className='btn btn-danger'>Delete</button>
                                         </td>
                                     </tr>
                                 )
