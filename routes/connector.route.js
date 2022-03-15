@@ -501,7 +501,7 @@ router.get('/statsionarprocient/:start/:end', async (req, res) => {
             })
 
             let data
-            if (sections.length > 0) {
+            if (sections.length === 0) {
                 data = { client, connector: connector, usedroom: rooms[i] }
                 datas.push(data)
             }
