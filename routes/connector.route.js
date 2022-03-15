@@ -349,9 +349,8 @@ router.get('/statsionar/:start/:end', async (req, res) => {
         const rooms = await UsedRoom.find({
             endDay: {
                 $gte:
-                    new Date(new Date(start).getFullYear(), new Date(start).getMonth(), new Date(start).getDate()),
-                $lt: new Date(new Date(end).getFullYear(),
-                    new Date(end).getMonth(), new Date(end).getDate() + 1)
+                    new Date(new Date(start).getFullYear() + "." + (new Date(start).getMonth() + 1) + "." + (new Date(start).getDate())),
+                $lt: new Date(new Date(end).getFullYear() + "." + (new Date(end).getMonth() + 1) + "." + (new Date(end).getDate() + 1))
             }
         })
             .sort({ _id: -1 })
@@ -434,9 +433,8 @@ router.get('/cashierstatsionar/:start/:end', async (req, res) => {
         const rooms = await UsedRoom.find({
             endDay: {
                 $gte:
-                    new Date(new Date(start).getFullYear(), new Date(start).getMonth(), new Date(start).getDate()),
-                $lt: new Date(new Date(end).getFullYear(),
-                    new Date(end).getMonth(), new Date(end).getDate() + 1)
+                    new Date(new Date(start).getFullYear() + "." + (new Date(start).getMonth() + 1) + "." + (new Date(start).getDate())),
+                $lt: new Date(new Date(end).getFullYear() + "." + (new Date(end).getMonth() + 1) + "." + (new Date(end).getDate() + 1))
             }
         })
             .sort({ _id: -1 })
@@ -474,13 +472,11 @@ router.get('/statsionarprocient/:start/:end', async (req, res) => {
     try {
         const start = new Date(req.params.start)
         const end = new Date(req.params.end)
-
         const rooms = await UsedRoom.find({
             endDay: {
                 $gte:
-                    new Date(new Date(start).getFullYear(), new Date(start).getMonth(), new Date(start).getDate()),
-                $lt: new Date(new Date(end).getFullYear(),
-                    new Date(end).getMonth(), new Date(end).getDate() + 1)
+                    new Date(new Date(start).getFullYear() + "." + (new Date(start).getMonth() + 1) + "." + (new Date(start).getDate())),
+                $lt: new Date(new Date(end).getFullYear() + "." + (new Date(end).getMonth() + 1) + "." + (new Date(end).getDate() + 1))
             }
         })
             .sort({ _id: -1 })
@@ -500,7 +496,7 @@ router.get('/statsionarprocient/:start/:end', async (req, res) => {
         for (let i = 0; i < rooms.length; i++) {
             let client = await Clients.findById(rooms[i].client)
             let connector = await Connector.findById(rooms[i].connector)
-            let data = { client, connector: connector, usedroom: rooms[i]}
+            let data = { client, connector: connector, usedroom: rooms[i] }
             datas.push(data)
         }
         res.json({ datas })
