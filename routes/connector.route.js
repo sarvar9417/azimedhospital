@@ -496,8 +496,16 @@ router.get('/statsionarprocient/:start/:end', async (req, res) => {
         for (let i = 0; i < rooms.length; i++) {
             let client = await Clients.findById(rooms[i].client)
             let connector = await Connector.findById(rooms[i].connector)
-            let data = { client, connector: connector, usedroom: rooms[i] }
-            datas.push(data)
+            const sections = await Section.find({
+                client: rooms[i].client
+            })
+
+            let data
+            if (sections.length > 0) {
+                data = { client, connector: connector, usedroom: rooms[i] }
+                datas.push(data)
+            }
+
         }
         res.json({ datas })
     } catch (e) {
