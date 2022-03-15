@@ -477,7 +477,8 @@ router.get('/statsionarprocient/:start/:end', async (req, res) => {
                 $gte:
                     new Date(new Date(start).getFullYear() + "." + (new Date(start).getMonth() + 1) + "." + (new Date(start).getDate())),
                 $lt: new Date(new Date(end).getFullYear() + "." + (new Date(end).getMonth() + 1) + "." + (new Date(end).getDate() + 1))
-            }
+            },
+            position: "yakunlangan"
         })
             .sort({ _id: -1 })
         // const connectors = await Connector.find({
@@ -505,7 +506,6 @@ router.get('/statsionarprocient/:start/:end', async (req, res) => {
                 data = { client, connector: connector, usedroom: rooms[i] }
                 datas.push(data)
             }
-
         }
         res.json({ datas })
     } catch (e) {
