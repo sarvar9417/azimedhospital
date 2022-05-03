@@ -471,7 +471,7 @@ export const NewClient = () => {
       getWarehouse()
       getWareConnectors()
     }
-  }, [notify, clearError])
+  }, [notify, clearError, setT])
 
   return (
     <div>
