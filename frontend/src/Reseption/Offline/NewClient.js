@@ -462,7 +462,8 @@ export const NewClient = () => {
 
   const [t, setT] = useState()
   useEffect(() => {
-    if (!options) {
+    if (!t) {
+      setT(1)
       getOptions()
       getSources()
       getCounterAgents()
