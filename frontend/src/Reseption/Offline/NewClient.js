@@ -1,17 +1,15 @@
-import React, { useCallback, useContext, useEffect, useState } from "react"
-import { useHistory } from "react-router-dom"
-import { useHttp } from "../hooks/http.hook"
-import "react-toastify/dist/ReactToastify.css"
-import { toast } from "react-toastify"
-import Select from "react-select"
-import makeAnimated from "react-select/animated"
-import { CheckClentData } from "../Online/CheckClentData"
-import { AuthContext } from "../context/AuthContext"
+import React, { useCallback, useContext, useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import { useHttp } from '../hooks/http.hook'
+import 'react-toastify/dist/ReactToastify.css'
+import { toast } from 'react-toastify'
+import Select from 'react-select'
+import makeAnimated from 'react-select/animated'
+import { CheckClentData } from '../Online/CheckClentData'
+import { AuthContext } from '../context/AuthContext'
 import '../CSS/radio.css'
-const mongoose = require("mongoose")
+const mongoose = require('mongoose')
 const animatedComponents = makeAnimated()
-
-
 
 toast.configure()
 export const NewClient = () => {
@@ -28,13 +26,12 @@ export const NewClient = () => {
   const auth = useContext(AuthContext)
   let s = []
 
-
   // So'rov kutish va xatoliklarni olish
   const { request, error, clearError, loading } = useHttp()
 
   const [advertisement, setAdvertisement] = useState(false)
   const [sources, setSources] = useState()
-  const [source, setSource] = useState(" ")
+  const [source, setSource] = useState(' ')
 
   //==============================================================================
   //==============================================================================
@@ -44,20 +41,27 @@ export const NewClient = () => {
   const getCounterAgents = useCallback(async () => {
     try {
       const fetch = await request('/api/counterdoctor', 'GET', null, {
-        Authorization: `Bearer ${auth.token}`
+        Authorization: `Bearer ${auth.token}`,
       })
-      let c = [{
-        label: "Tanlanmagan",
-        value: " ",
-        counterdoctor: "",
-        counteragent: "",
-      }]
+      let c = [
+        {
+          label: 'Tanlanmagan',
+          value: ' ',
+          counterdoctor: '',
+          counteragent: '',
+        },
+      ]
       fetch.map((data) => {
         c.push({
-          label: data.clinic.toUpperCase() + " " + data.lastname + " " + data.firstname,
-          value: data.lastname + " " + data.firstname,
+          label:
+            data.clinic.toUpperCase() +
+            ' ' +
+            data.lastname +
+            ' ' +
+            data.firstname,
+          value: data.lastname + ' ' + data.firstname,
           counterdoctor: data._id,
-          counteragent: data.counteragent
+          counteragent: data.counteragent,
         })
       })
       setCounterAgents(c)
@@ -67,22 +71,27 @@ export const NewClient = () => {
   }, [auth, request, setCounterAgents])
 
   const changeCounterAgent = (event) => {
-    if (event.label === "Tanlanmagan") {
+    if (event.label === 'Tanlanmagan') {
       setCounterAgent(null)
     } else {
       setCounterAgent({
         counteragent: event.counteragent,
         counterdoctor: event.counterdoctor,
-        paymentDay: new Date()
+        paymentDay: new Date(),
       })
     }
   }
 
   const createPaymentCounteragent = async (client, connector) => {
     try {
-      const data = await request(`/api/counteragentpayment/reseption/register`, "POST", { ...counteragent, connector, client }, {
-        Authorization: `Bearer ${auth.token}`
-      })
+      const data = await request(
+        `/api/counteragentpayment/reseption/register`,
+        'POST',
+        { ...counteragent, connector, client },
+        {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      )
     } catch (e) {
       notify(e)
     }
@@ -93,7 +102,7 @@ export const NewClient = () => {
   const getSources = useCallback(async () => {
     try {
       const fetch = await request('/api/source/', 'GET', null, {
-        Authorization: `Bearer ${auth.token}`
+        Authorization: `Bearer ${auth.token}`,
       })
       setSources(fetch)
     } catch (error) {
@@ -114,8 +123,8 @@ export const NewClient = () => {
   const [options, setOptions] = useState()
   const getOptions = useCallback(async () => {
     try {
-      const data = await request("/api/direction/", "GET", null, {
-        Authorization: `Bearer ${auth.token}`
+      const data = await request('/api/direction/', 'GET', null, {
+        Authorization: `Bearer ${auth.token}`,
       })
       setOptions(data)
     } catch (e) {
@@ -125,14 +134,14 @@ export const NewClient = () => {
 
   // Mijoz sxemasi
   const [client, setClient] = useState({
-    firstname: "",
-    lastname: "",
-    fathername: " ",
-    gender: "",
-    phone: "998",
+    firstname: '',
+    lastname: '',
+    fathername: ' ',
+    gender: '',
+    phone: '998',
     id: 0,
-    born: "",
-    address: " "
+    born: '',
+    address: ' ',
   })
 
   // =================================================================================
@@ -144,17 +153,17 @@ export const NewClient = () => {
   const getWarehouse = useCallback(async () => {
     try {
       const fetch = await request('/api/warehouse/', 'GET', null, {
-        Authorization: `Bearer ${auth.token}`
+        Authorization: `Bearer ${auth.token}`,
       })
       let s = []
-      fetch.map(p => {
+      fetch.map((p) => {
         s.push({
-          label: p.name + " " + p.type,
-          value: p.name + " " + p.type,
+          label: p.name + ' ' + p.type,
+          value: p.name + ' ' + p.type,
           name: p.name,
           type: p.type,
           price: p.price,
-          _id: p._id
+          _id: p._id,
         })
       })
       setWarehouse(s)
@@ -173,10 +182,10 @@ export const NewClient = () => {
         price: service.price,
         pieces: 1,
         priceone: service.price,
-        payment: "kutilmoqda",
+        payment: 'kutilmoqda',
         priceCashier: 0,
-        commentCashier: " ",
-        paymentMethod: " "
+        commentCashier: ' ',
+        paymentMethod: ' ',
       })
     })
     setServices(s)
@@ -189,22 +198,29 @@ export const NewClient = () => {
         [key]: {
           ...services[key],
           pieces: parseInt(event.target.value),
-          price: parseInt(services[key].priceone) * parseInt(event.target.value)
+          price:
+            parseInt(services[key].priceone) * parseInt(event.target.value),
         },
-      })
+      }),
     )
   }
   const createAllServices = (id, connector) => {
-    services && services.map((service) => {
-      createService(id, service, connector)
-    })
+    services &&
+      services.map((service) => {
+        createService(id, service, connector)
+      })
   }
 
   const createService = async (id, service, connector) => {
     try {
-      const data = await request(`/api/service/register`, "POST", { ...service, connector, client: id }, {
-        Authorization: `Bearer ${auth.token}`
-      })
+      const data = await request(
+        `/api/service/register`,
+        'POST',
+        { ...service, connector, client: id },
+        {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      )
     } catch (e) {
       notify(e)
     }
@@ -221,16 +237,15 @@ export const NewClient = () => {
   }
 
   const changeSource = (name) => {
-    sections && sections.map((section, key) => {
-      setSections(
-        Object.values({
-          ...sections,
-          [key]: { ...sections[key], source: name },
-        })
-
-      )
-
-    })
+    sections &&
+      sections.map((section, key) => {
+        setSections(
+          Object.values({
+            ...sections,
+            [key]: { ...sections[key], source: name },
+          }),
+        )
+      })
     setSource(name)
   }
 
@@ -245,36 +260,33 @@ export const NewClient = () => {
         if (checkTurn(sec, section.section)) {
           turn++
         }
-
       })
       s.map((sec) => {
         if (sec.name === section.section) {
           turn++
         }
-
       })
       s.push({
         name: section.section,
         subname: section.subsection,
         price: section.price,
         priceCashier: 0,
-        commentCashier: " ",
-        comment: " ",
-        summary: " ",
-        done: "tasdiqlanmagan",
-        payment: "kutilmoqda",
+        commentCashier: ' ',
+        comment: ' ',
+        summary: ' ',
+        done: 'tasdiqlanmagan',
+        payment: 'kutilmoqda',
         turn: turn + 1,
-        bron: "offline",
+        bron: 'offline',
         bronDay: new Date(),
-        bronTime: " ",
-        position: "offline",
-        checkup: "chaqirilmagan",
-        doctor: " ",
-        counteragent: " ",
-        paymentMethod: " ",
-        source: source
+        bronTime: ' ',
+        position: 'offline',
+        checkup: 'chaqirilmagan',
+        doctor: ' ',
+        counteragent: ' ',
+        paymentMethod: ' ',
+        source: source,
       })
-
     })
     setSections(s)
     setIds(i)
@@ -282,11 +294,16 @@ export const NewClient = () => {
 
   const allClients = useCallback(async () => {
     try {
-      const fetch = await request("/api/clients/reseption/length", "GET", null, {
-        Authorization: `Bearer ${auth.token}`
-      })
-      const sec = await request("/api/section/reseption/turn", "GET", null, {
-        Authorization: `Bearer ${auth.token}`
+      const fetch = await request(
+        '/api/clients/reseption/length',
+        'GET',
+        null,
+        {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      )
+      const sec = await request('/api/section/reseption/turn', 'GET', null, {
+        Authorization: `Bearer ${auth.token}`,
       })
       seTurns(sec)
       client.id = fetch + 1000001
@@ -303,12 +320,16 @@ export const NewClient = () => {
     setModal(true)
   }
 
-
   const createHandler = async () => {
     try {
-      const data = await request("/api/clients/reseption/register", "POST", { ...client }, {
-        Authorization: `Bearer ${auth.token}`
-      })
+      const data = await request(
+        '/api/clients/reseption/register',
+        'POST',
+        { ...client },
+        {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      )
       createConnector(data._id)
     } catch (e) {
       notify(e)
@@ -317,19 +338,24 @@ export const NewClient = () => {
 
   const createConnector = async (client) => {
     try {
-      const connector = await request("/api/connector/register", "POST", {
-        client,
-        source,
-        counteragent: counteragent ? counteragent.counteragent : " ",
-        type: "offline",
-        position: " ",
-        doctor: " ",
-        diagnosis: " ",
-        bronDay: new Date(),
-        prepaymentCashier: 0,
-      }, {
-        Authorization: `Bearer ${auth.token}`
-      })
+      const connector = await request(
+        '/api/connector/register',
+        'POST',
+        {
+          client,
+          source,
+          counteragent: counteragent ? counteragent.counteragent : ' ',
+          type: 'offline',
+          position: ' ',
+          doctor: ' ',
+          diagnosis: ' ',
+          bronDay: new Date(),
+          prepaymentCashier: 0,
+        },
+        {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      )
       createAllSections(client, connector._id)
       createAllServices(client, connector._id)
       counteragent && createPaymentCounteragent(client, connector._id)
@@ -339,18 +365,24 @@ export const NewClient = () => {
   }
 
   const createAllSections = (id, connector) => {
-    sections && sections.map((section) => {
-      create(id, section, connector)
-    })
+    sections &&
+      sections.map((section) => {
+        create(id, section, connector)
+      })
     WareUseds(connector)
     history.push(`/reseption/clients`)
   }
 
   const create = async (id, section, connector) => {
     try {
-      const data = await request(`/api/section/reseption/register/${id}`, "POST", { ...section, connector }, {
-        Authorization: `Bearer ${auth.token}`
-      })
+      const data = await request(
+        `/api/section/reseption/register/${id}`,
+        'POST',
+        { ...section, connector },
+        {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      )
     } catch (e) {
       notify(e)
     }
@@ -359,11 +391,11 @@ export const NewClient = () => {
   const checkTurn = (turn, name) => {
     if (
       mongoose.Types.ObjectId(turn._id).getTimestamp().getFullYear() ===
-      new Date().getFullYear() &&
+        new Date().getFullYear() &&
       mongoose.Types.ObjectId(turn._id).getTimestamp().getMonth() ===
-      new Date().getMonth() &&
+        new Date().getMonth() &&
       mongoose.Types.ObjectId(turn._id).getTimestamp().getDate() ===
-      new Date().getDate() &&
+        new Date().getDate() &&
       turn.name === name
     )
       return true
@@ -377,8 +409,8 @@ export const NewClient = () => {
   const [wareconnectors, setWareConnectors] = useState()
   const getWareConnectors = useCallback(async () => {
     try {
-      const fetch = await request("/api/wareconnector", "GET", null, {
-        Authorization: `Bearer ${auth.token}`
+      const fetch = await request('/api/wareconnector', 'GET', null, {
+        Authorization: `Bearer ${auth.token}`,
       })
       setWareConnectors(fetch)
     } catch (e) {
@@ -388,71 +420,67 @@ export const NewClient = () => {
 
   const WareUseds = (bind) => {
     let wareuseds = []
-    ids && ids.map((id) => {
-      wareconnectors && wareconnectors.map((wareconnector) => {
-        if (id === wareconnector.section) {
-          wareuseds.push({
-            section: wareconnector.section,
-            sectionname: wareconnector.sectionname,
-            warehouse: wareconnector.warehouse,
-            warehousename: wareconnector.warehousename,
-            count: wareconnector.count,
-            connector: bind,
-            day: new Date()
+    ids &&
+      ids.map((id) => {
+        wareconnectors &&
+          wareconnectors.map((wareconnector) => {
+            if (id === wareconnector.section) {
+              wareuseds.push({
+                section: wareconnector.section,
+                sectionname: wareconnector.sectionname,
+                warehouse: wareconnector.warehouse,
+                warehousename: wareconnector.warehousename,
+                count: wareconnector.count,
+                connector: bind,
+                day: new Date(),
+              })
+            }
           })
-        }
       })
-    })
     createWareUseds(wareuseds)
   }
 
-  const createWareUseds = useCallback(async (wareuseds) => {
-    try {
-      const fetch = await request(`/api/wareused/register`, "POST", wareuseds, {
-        Authorization: `Bearer ${auth.token}`
-      })
-    } catch (e) {
-      notify(e)
-    }
-  }, [request, auth])
+  const createWareUseds = useCallback(
+    async (wareuseds) => {
+      try {
+        const fetch = await request(
+          `/api/wareused/register`,
+          'POST',
+          wareuseds,
+          {
+            Authorization: `Bearer ${auth.token}`,
+          },
+        )
+      } catch (e) {
+        notify(e)
+      }
+    },
+    [request, auth],
+  )
   // =================================================================================
   // =================================================================================
 
-
+  const [t, setT] = useState()
   useEffect(() => {
     if (!options) {
       getOptions()
-    }
-    if (!sources) {
       getSources()
-    }
-    if (!counteragents) {
       getCounterAgents()
-    }
-    if (client.id === 0) {
       allClients()
-    }
-    if (error) {
-      notify(error)
-      clearError()
-    }
-    if (!warehouse) {
       getWarehouse()
-    }
-    if (!wareconnectors) {
       getWareConnectors()
     }
   }, [notify, clearError])
 
   return (
     <div>
-      <div className="row" >
+      <div className="row">
         <div className="col-12 mt-3 d-flex justify-content-center align-items-center">
           <h4 className="text-right">Mijozning ma'lumotlarini kiritish</h4>
         </div>
       </div>
       <div className="row">
-        <div className="col-md-6 mb-2 input_box" >
+        <div className="col-md-6 mb-2 input_box">
           <input
             defaultValue={client.lastname}
             onChange={changeHandlar}
@@ -461,9 +489,14 @@ export const NewClient = () => {
             className="form-control inp"
             placeholder=""
           />
-          <label className="labels" style={{ top: "-7px", fontSize: "12px", fontWeight: "500" }}>Familiya</label>
+          <label
+            className="labels"
+            style={{ top: '-7px', fontSize: '12px', fontWeight: '500' }}
+          >
+            Familiya
+          </label>
         </div>
-        <div className="col-md-6 mb-2 input_box" >
+        <div className="col-md-6 mb-2 input_box">
           <input
             defaultValue={client.firstname}
             onChange={changeHandlar}
@@ -472,11 +505,16 @@ export const NewClient = () => {
             className="form-control inp"
             placeholder=""
           />
-          <label className="labels" style={{ top: "-7px", fontSize: "12px", fontWeight: "500" }}>Ism</label>
+          <label
+            className="labels"
+            style={{ top: '-7px', fontSize: '12px', fontWeight: '500' }}
+          >
+            Ism
+          </label>
         </div>
       </div>
-      <div className="row" style={{ padding: "15px 0" }}>
-        <div className="col-md-6 mb-2 input_box" >
+      <div className="row" style={{ padding: '15px 0' }}>
+        <div className="col-md-6 mb-2 input_box">
           <input
             defaultValue={client.fathername}
             onChange={changeHandlar}
@@ -485,23 +523,43 @@ export const NewClient = () => {
             className="form-control inp"
             placeholder=""
           />
-          <label className="labels" style={{ top: "-7px", fontSize: "12px", fontWeight: "500" }}>Otasining ismi</label>
+          <label
+            className="labels"
+            style={{ top: '-7px', fontSize: '12px', fontWeight: '500' }}
+          >
+            Otasining ismi
+          </label>
         </div>
-        <div className="col-md-6 mb-2 input_box" >
+        <div className="col-md-6 mb-2 input_box">
           <input
-            defaultValue={new Date(client.born).getFullYear().toString() + '-' + (new Date(client.born).getMonth() < 9 ? "0" + (new Date(client.born).getMonth() + 1).toString() : (new Date(client.born).getMonth() + 1).toString()) + '-' + (new Date(client.born).getDate() < 10 ? "0" + (new Date(client.born).getDate()).toString() : (new Date(client.born).getDate()).toString())}
+            defaultValue={
+              new Date(client.born).getFullYear().toString() +
+              '-' +
+              (new Date(client.born).getMonth() < 9
+                ? '0' + (new Date(client.born).getMonth() + 1).toString()
+                : (new Date(client.born).getMonth() + 1).toString()) +
+              '-' +
+              (new Date(client.born).getDate() < 10
+                ? '0' + new Date(client.born).getDate().toString()
+                : new Date(client.born).getDate().toString())
+            }
             onChange={changeDate}
             type="date"
             name="born"
             className="form-control inp"
             placeholder=""
-            style={{ color: "#999" }}
+            style={{ color: '#999' }}
           />
-          <label className="labels" style={{ top: "-7px", fontSize: "12px", fontWeight: "500" }}>Tug'ilgan sanasi</label>
+          <label
+            className="labels"
+            style={{ top: '-7px', fontSize: '12px', fontWeight: '500' }}
+          >
+            Tug'ilgan sanasi
+          </label>
         </div>
       </div>
       <div className="row">
-        <div className="col-md-6 mb-2" >
+        <div className="col-md-6 mb-2">
           <div className="form-group">
             <div className="btn-group">
               <div className="wrapp">
@@ -512,16 +570,16 @@ export const NewClient = () => {
                   name="gender"
                   type="radio"
                   defaultValue="man"
-                  checked={client.gender === "man" ? true : false}
+                  checked={client.gender === 'man' ? true : false}
                 />
                 <label
-                  className={client.gender === "man" ? "label clabel" : "label"}
+                  className={client.gender === 'man' ? 'label clabel' : 'label'}
                   htmlFor="erkak"
                 >
                   Erkak
                 </label>
                 <input
-                  checked={client.gender === "woman" ? true : false}
+                  checked={client.gender === 'woman' ? true : false}
                   className="input"
                   type="radio"
                   id="ayol"
@@ -531,7 +589,7 @@ export const NewClient = () => {
                 />
                 <label
                   className={
-                    client.gender === "woman" ? "label clabel" : "label"
+                    client.gender === 'woman' ? 'label clabel' : 'label'
                   }
                   htmlFor="ayol"
                 >
@@ -541,7 +599,7 @@ export const NewClient = () => {
             </div>
           </div>
         </div>
-        <div className="col-md-6 mb-2 input_box" >
+        <div className="col-md-6 mb-2 input_box">
           <input
             defaultValue={client.phone}
             onChange={changeHandlar}
@@ -552,7 +610,12 @@ export const NewClient = () => {
             className="form-control inp"
             placeholder=""
           />
-          <label className="labels" style={{ top: "-7px", fontSize: "12px", fontWeight: "500" }}>Telefon raqami</label>
+          <label
+            className="labels"
+            style={{ top: '-7px', fontSize: '12px', fontWeight: '500' }}
+          >
+            Telefon raqami
+          </label>
         </div>
         <div className="col-12">
           <input
@@ -563,19 +626,27 @@ export const NewClient = () => {
             className="form-control inp"
             placeholder="Mijozning manzili"
           />
-          <label className="labels" style={{ top: "-7px", fontSize: "12px", fontWeight: "500" }}>Mijoz manzili</label>
+          <label
+            className="labels"
+            style={{ top: '-7px', fontSize: '12px', fontWeight: '500' }}
+          >
+            Mijoz manzili
+          </label>
         </div>
       </div>
 
       <div className="text-end">
-        {
-          advertisement ?
-            <button onClick={() => setAdvertisement(false)} className="adver">-</button>
-            :
-            <button onClick={() => setAdvertisement(true)} className="adver">+</button>
-        }
+        {advertisement ? (
+          <button onClick={() => setAdvertisement(false)} className="adver">
+            -
+          </button>
+        ) : (
+          <button onClick={() => setAdvertisement(true)} className="adver">
+            +
+          </button>
+        )}
       </div>
-      <div className={advertisement ? "row m-0 p-1 border rounded" : "d-none"}>
+      <div className={advertisement ? 'row m-0 p-1 border rounded' : 'd-none'}>
         <Select
           placeholder="Kontragentni tanglang"
           className="m-0 p-0"
@@ -584,22 +655,44 @@ export const NewClient = () => {
           options={counteragents && counteragents}
           escapeClearsValue="true"
         />
-        <div className="mt-3 text-center p-0" >
-          {
-            sources && sources.map((adver, key) => {
+        <div className="mt-3 text-center p-0">
+          {sources &&
+            sources.map((adver, key) => {
               if (adver.name === source) {
-                return <button onClick={() => changeSource(adver.name)} className="button-change"> {adver.name} </button>
+                return (
+                  <button
+                    onClick={() => changeSource(adver.name)}
+                    className="button-change"
+                  >
+                    {' '}
+                    {adver.name}{' '}
+                  </button>
+                )
               } else {
-                return <button onClick={() => changeSource(adver.name)} className="button">{adver.name}</button>
+                return (
+                  <button
+                    onClick={() => changeSource(adver.name)}
+                    className="button"
+                  >
+                    {adver.name}
+                  </button>
+                )
               }
-            })
-          }
-          <button onClick={() => { setSource(" ") }} className="button" style={{ backgroundColor: "Red" }}>X</button>
+            })}
+          <button
+            onClick={() => {
+              setSource(' ')
+            }}
+            className="button"
+            style={{ backgroundColor: 'Red' }}
+          >
+            X
+          </button>
         </div>
       </div>
 
       <div className="row pt-3">
-        <div className="col-12" >
+        <div className="col-12">
           <p className="m-0 ps-2">Bo'limni tanlang</p>
           <Select
             className=""
@@ -609,30 +702,31 @@ export const NewClient = () => {
             isMulti
             options={options && options}
           />
-          {sections && sections.map((section, key) => {
-            return (
-              <div className="row">
-                <div className="col-6">
-                  <input
-                    disabled
-                    value={section.name + " " + section.subname}
-                    id={key}
-                    className="form-control mt-2"
-                  />
+          {sections &&
+            sections.map((section, key) => {
+              return (
+                <div className="row">
+                  <div className="col-6">
+                    <input
+                      disabled
+                      value={section.name + ' ' + section.subname}
+                      id={key}
+                      className="form-control mt-2"
+                    />
+                  </div>
+                  <div className="col-6">
+                    <input
+                      disabled
+                      value={section.price}
+                      id={key}
+                      className="form-control mt-2"
+                    />
+                  </div>
                 </div>
-                <div className="col-6">
-                  <input
-                    disabled
-                    value={section.price}
-                    id={key}
-                    className="form-control mt-2"
-                  />
-                </div>
-              </div>
-            )
-          })}
+              )
+            })}
         </div>
-        <div className="col-12 mt-5" >
+        <div className="col-12 mt-5">
           <p className="m-0 ps-2">Xizmatni tanlang</p>
           <Select
             className=""
@@ -642,91 +736,161 @@ export const NewClient = () => {
             isMulti
             options={warehouse && warehouse}
           />
-          {services && services.map((service, key) => {
-            return (
-              <div className="row">
-                <div className="col-4">
-                  <input
-                    disabled
-                    value={service.name + " " + service.type}
-                    id={key}
-                    className="form-control mt-2"
-                  />
+          {services &&
+            services.map((service, key) => {
+              return (
+                <div className="row">
+                  <div className="col-4">
+                    <input
+                      disabled
+                      value={service.name + ' ' + service.type}
+                      id={key}
+                      className="form-control mt-2"
+                    />
+                  </div>
+                  <div className="col-4">
+                    <input
+                      onChange={changePieces}
+                      defaultValue={service.pieces}
+                      id={key}
+                      className="form-control mt-2"
+                    />
+                  </div>
+                  <div className="col-4">
+                    <input
+                      disabled
+                      value={service.price}
+                      id={key}
+                      className="form-control mt-2"
+                    />
+                  </div>
                 </div>
-                <div className="col-4">
-                  <input
-                    onChange={changePieces}
-                    defaultValue={service.pieces}
-                    id={key}
-                    className="form-control mt-2"
-                  />
-                </div>
-                <div className="col-4">
-                  <input
-                    disabled
-                    value={service.price}
-                    id={key}
-                    className="form-control mt-2"
-                  />
-                </div>
-              </div>
-            )
-          })}
+              )
+            })}
         </div>
       </div>
 
-      <div className="mt-5 text-center" >
-        <button disabled={loading} onClick={checkData} className="btn btn-primary profile-button mb-5">
+      <div className="mt-5 text-center">
+        <button
+          disabled={loading}
+          onClick={checkData}
+          className="btn btn-primary profile-button mb-5"
+        >
           Saqlash
         </button>
       </div>
 
       {/* Modal oynaning ochilishi */}
-      <div className={modal ? "modal" : "d-none"}>
+      <div className={modal ? 'modal' : 'd-none'}>
         <div className="modal-card">
-          <div className="card p-4" style={{ fontFamily: "times" }}>
+          <div className="card p-4" style={{ fontFamily: 'times' }}>
             <div className="text-center fs-4 fw-bold text-secondary">
-              <span className="text-dark">Mijoz: </span>  {client.lastname} {client.firstname} {client.fathername}
+              <span className="text-dark">Mijoz: </span> {client.lastname}{' '}
+              {client.firstname} {client.fathername}
             </div>
-            <table className="w-100 mt-3" style={{ overflow: "auto" }}>
+            <table className="w-100 mt-3" style={{ overflow: 'auto' }}>
               <thead>
-                <tr style={{ borderBottom: "1px solid #999" }} >
-                  <th style={{ width: "10%", textAlign: "center", padding: "10px 0" }}>№</th>
-                  <th style={{ width: "30%", textAlign: "center", padding: "10px 0" }}>Bo'limlar</th>
-                  <th style={{ width: "15%", textAlign: "center", padding: "10px 0" }}>Hisob</th>
+                <tr style={{ borderBottom: '1px solid #999' }}>
+                  <th
+                    style={{
+                      width: '10%',
+                      textAlign: 'center',
+                      padding: '10px 0',
+                    }}
+                  >
+                    №
+                  </th>
+                  <th
+                    style={{
+                      width: '30%',
+                      textAlign: 'center',
+                      padding: '10px 0',
+                    }}
+                  >
+                    Bo'limlar
+                  </th>
+                  <th
+                    style={{
+                      width: '15%',
+                      textAlign: 'center',
+                      padding: '10px 0',
+                    }}
+                  >
+                    Hisob
+                  </th>
                 </tr>
               </thead>
-              <tbody style={{ borderBottom: "1px solid #999" }}>
-
-                {
-                  sections && sections.map((section, key) => {
+              <tbody style={{ borderBottom: '1px solid #999' }}>
+                {sections &&
+                  sections.map((section, key) => {
                     allPrice = allPrice + section.price
                     return (
                       <tr key={key}>
-                        <td style={{ width: "10%", textAlign: "center", padding: "10px 0" }}>{key + 1}</td>
-                        <td style={{ width: "30%", textAlign: "center", padding: "10px 0" }}>
+                        <td
+                          style={{
+                            width: '10%',
+                            textAlign: 'center',
+                            padding: '10px 0',
+                          }}
+                        >
+                          {key + 1}
+                        </td>
+                        <td
+                          style={{
+                            width: '30%',
+                            textAlign: 'center',
+                            padding: '10px 0',
+                          }}
+                        >
                           {section.name} {section.subname}
                         </td>
-                        <td style={{ width: "15%", textAlign: "center", padding: "10px 0" }}>{section.price}</td>
+                        <td
+                          style={{
+                            width: '15%',
+                            textAlign: 'center',
+                            padding: '10px 0',
+                          }}
+                        >
+                          {section.price}
+                        </td>
                       </tr>
                     )
-                  })
-                }
-                {
-                  services && services.map((service, key) => {
+                  })}
+                {services &&
+                  services.map((service, key) => {
                     allPrice = allPrice + service.price
                     return (
                       <tr key={key}>
-                        <td style={{ width: "10%", textAlign: "center", padding: "10px 0" }}>{key + 1}</td>
-                        <td style={{ width: "30%", textAlign: "center", padding: "10px 0" }}>
+                        <td
+                          style={{
+                            width: '10%',
+                            textAlign: 'center',
+                            padding: '10px 0',
+                          }}
+                        >
+                          {key + 1}
+                        </td>
+                        <td
+                          style={{
+                            width: '30%',
+                            textAlign: 'center',
+                            padding: '10px 0',
+                          }}
+                        >
                           {service.name} {service.type}
                         </td>
-                        <td style={{ width: "15%", textAlign: "center", padding: "10px 0" }}>{service.price}</td>
+                        <td
+                          style={{
+                            width: '15%',
+                            textAlign: 'center',
+                            padding: '10px 0',
+                          }}
+                        >
+                          {service.price}
+                        </td>
                       </tr>
                     )
-                  })
-                }
-
+                  })}
               </tbody>
             </table>
 
@@ -738,15 +902,25 @@ export const NewClient = () => {
                 <div className="fw-bold  text-end ">{allPrice}</div>
               </div>
               <hr />
-
             </div>
             <div className="row m-1">
               <div className="col-12 text-center">
-                <button onClick={createHandler} disabled={loading} className="btn button-success" style={{ marginRight: "30px" }}>Tasdiqlash</button>
-                <button onClick={() => setModal(false)} className="btn button-danger" >Qaytish</button>
+                <button
+                  onClick={createHandler}
+                  disabled={loading}
+                  className="btn button-success"
+                  style={{ marginRight: '30px' }}
+                >
+                  Tasdiqlash
+                </button>
+                <button
+                  onClick={() => setModal(false)}
+                  className="btn button-danger"
+                >
+                  Qaytish
+                </button>
               </div>
             </div>
-
           </div>
         </div>
       </div>
