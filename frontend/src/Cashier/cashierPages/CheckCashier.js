@@ -766,10 +766,10 @@ export const CheckCashier = () => {
               value={
                 client &&
                 client.lastname +
-                  ' ' +
-                  client.firstname +
-                  ' ' +
-                  client.fathername
+                ' ' +
+                client.firstname +
+                ' ' +
+                client.fathername
               }
               disabled
               name="FIO"
@@ -1072,7 +1072,7 @@ export const CheckCashier = () => {
               <input
                 value={payment.cash}
                 type="number"
-                id="mixed"
+                id="cash"
                 onChange={setPay}
                 disabled={payment.type !== 'mixed' ? true : false}
                 className="form-control"

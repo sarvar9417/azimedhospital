@@ -19,7 +19,7 @@ export const DirectionTurn = ({ section, room }) => {
         } catch (e) {
 
         }
-    }, [request, offline, setOffline])
+    }, [request, offline, setOffline, section])
 
     setTimeout(() => {
         // localStorage.clear()

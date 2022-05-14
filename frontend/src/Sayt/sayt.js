@@ -12,7 +12,6 @@ import { Turn } from './Turn'
 import { CallCenter } from './CallCenter'
 import { Medsestra } from './Sections/Medsestra'
 import { Fizioterapevt } from './Sections/Fizioterapevt'
-import { CounterAgent } from './../CounterAgent/CounterAgent'
 
 export const Sayt = () => {
 

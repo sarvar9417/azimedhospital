@@ -44,7 +44,7 @@ export const Turn = () => {
             notify(error)
             clearError()
         }
-    }, [getDirections, notify, clearError, directions])
+    }, [getDirections, clearError, directions, error])
 
     if (loading) {
         return <Loading />
@@ -73,9 +73,9 @@ export const Turn = () => {
                     ) {
                         return (
                             <div className="col-lg-3 col-md-4 col-sm-6 mb-2" key={index}>
-                                <DirectionTurn section={direction.section} room = {direction.room} />
+                                <DirectionTurn section={direction.section} room={direction.room} />
                             </div>)
-                    }
+                    } else return ""
                 })}
             </div>
             <div className="row mb-4" style={{ overflowX: "hidden" }}>

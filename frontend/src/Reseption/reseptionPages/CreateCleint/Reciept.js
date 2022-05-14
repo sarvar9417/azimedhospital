@@ -49,13 +49,10 @@ export const Reciept = () => {
             const data = await request(`/api/section/reseptionid/${clientId}/${connectorId}`, 'GET', null, {
                 Authorization: `Bearer ${auth.token}`
             })
-            console.log(data)
             setSections(data)
         } catch (e) {
         }
-    }, [request, clientId, auth])
-
-
+    }, [request, clientId, auth, connectorId])
 
     const getClient = useCallback(async () => {
         try {
@@ -91,6 +88,8 @@ export const Reciept = () => {
         }
     }, [request, setLogo])
 
+    const [t, setT] = useState()
+
     useEffect(() => {
         if (client) {
             QRCode.toDataURL(`${baseUrl}/clienthistorys/${client._id}`)
@@ -98,27 +97,20 @@ export const Reciept = () => {
                     setQr(data)
                 })
         }
-        if (!client) {
+        if (!t) {
+            setT(1)
             getClient()
+            getLogo()
+            getBaseUrl()
+            getServices()
+            getSections()
         }
         if (error) {
             notify(error)
             clearError()
         }
-        if (!logo) {
-            getLogo()
-        }
-        if (!baseUrl) {
-            getBaseUrl()
-        }
-        if (!sections) {
-            getSections()
-        }
-        if (!services) {
-            getServices()
-        }
 
-    }, [notify, clearError])
+    }, [error, baseUrl, t, clearError, client, getClient, getLogo, getBaseUrl, getServices, getSections])
 
     if (loading) {
         return <Loader />
