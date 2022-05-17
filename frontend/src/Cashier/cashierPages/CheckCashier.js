@@ -544,6 +544,7 @@ export const CheckCashier = () => {
     }
   }
 
+  let count = 1
   const checkPrices2 = () => {
     let k = 0
 
@@ -582,7 +583,14 @@ export const CheckCashier = () => {
     if (payment.type === '') {
       return notify("Diqqat to'lov turini tanlashni unutdingiz")
     }
-    setPayments()
+    if (count === 1) {
+      setPayments()
+      return count = 0
+    } else {
+      return history.push({
+        pathname: `/cashier/reciept/${clientId}/${connectorId}`,
+      })
+    }
   }
 
   const patchPaymentSections = useCallback(async () => {
@@ -807,7 +815,7 @@ export const CheckCashier = () => {
               <th
                 style={{ width: '25%', textAlign: 'center', padding: '10px 0' }}
               >
-                To'lov{' '}
+                To'lov
                 <input
                   disabled={loading}
                   onChange={paymenteds}
@@ -1046,7 +1054,7 @@ export const CheckCashier = () => {
                   id="card"
                   type="radio"
                   name="payment"
-                />{' '}
+                />
                 Plastik
               </label>
               <input
@@ -1066,7 +1074,7 @@ export const CheckCashier = () => {
                   id="cash"
                   type="radio"
                   name="payment"
-                />{' '}
+                />
                 Naqt
               </label>
               <input
@@ -1086,7 +1094,7 @@ export const CheckCashier = () => {
                   id="transfer"
                   type="radio"
                   name="payment"
-                />{' '}
+                />
                 O'tkazma
               </label>
               <input
@@ -1106,7 +1114,7 @@ export const CheckCashier = () => {
                   id="mixed"
                   type="radio"
                   name="payment"
-                />{' '}
+                />
                 Aralash
               </label>
             </div>
@@ -1131,8 +1139,8 @@ export const CheckCashier = () => {
           <div className="card">
             <div className="card-header">
               <div className="text-center fs-4 fw-bold text-secondary">
-                <span className="text-dark">Mijoz: </span>{' '}
-                {client && client.lastname} {client && client.firstname}{' '}
+                <span className="text-dark">Mijoz: </span>
+                {client && client.lastname} {client && client.firstname}
                 {client && client.fathername}
               </div>
             </div>
@@ -1380,12 +1388,12 @@ export const CheckCashier = () => {
             <div className="card-header">
               <div className="text-center fs-4 fw-bold text-secondary">
                 <span className="text-dark">Mijoz: </span>
-                {client && client.lastname} {client && client.firstname}{' '}
+                {client && client.lastname} {client && client.firstname}
                 {client && client.fathername}ga ko'rsatilayotgan
                 <span className="text-danger">
-                  {' '}
+
                   {delService && delService.name + ' ' + delService.type}
-                </span>{' '}
+                </span>
                 xizmati mijozning xizmatlar bo'limidan o'chiriladi. O'chirishni
                 tasdiqlaysizmi?
               </div>
@@ -1421,12 +1429,12 @@ export const CheckCashier = () => {
             <div className="card-header">
               <div className="text-center fs-4 fw-bold text-secondary">
                 <span className="text-dark">Mijoz: </span>
-                {client && client.lastname} {client && client.firstname}{' '}
+                {client && client.lastname} {client && client.firstname}
                 {client && client.fathername}ga ko'rsatilayotgan
                 <span className="text-danger">
-                  {' '}
+
                   {delSection && delSection.name + ' ' + delSection.subname}
-                </span>{' '}
+                </span>
                 xizmati(yoki ashyosi) mijozning xizmatlar bo'limidan
                 o'chiriladi. O'chirishni tasdiqlaysizmi?
               </div>
