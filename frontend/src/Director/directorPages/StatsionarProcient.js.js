@@ -27,8 +27,8 @@ export const StatsionarProcient = () => {
     let k = 0
     let kk = 0
     const [type, setType] = useState("all")
-    const [startDate, setStartDate] = useState(new Date(new Date().getFullYear(), new Date().getMonth(), 1))
-    const [endDate, setEndDate] = useState(new Date())
+    const [startDate, setStartDate] = useState(new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString())
+    const [endDate, setEndDate] = useState(new Date(new Date().setHours(23, 59, 59, 0)).toISOString())
     const [born, setBorn] = useState('')
     const { loading, request, error, clearError } = useHttp()
     const [clientId, setClientId] = useState('')
@@ -145,10 +145,28 @@ export const StatsionarProcient = () => {
         <div className="container m-5 mx-auto" style={{ minWidth: "1250px" }}  >
             <div className="row mb-3">
                 <div className=" col-2">
-                    <DatePicker className="form-control mb-2" selected={startDate} onChange={(date) => { setStartDate(date) }} />
+                    <input
+                        onChange={(e) =>  setStartDate( new Date(new Date(e.target.value).setHours(0, 0, 0, 0)).toISOString())}
+                        defaultValue={new Date(startDate).toISOString().slice(0, 10)}
+                        type='date'
+                        name='startDate'
+                        loading={loading}
+                        className='border rounded p-1 focus:outline-green-800'
+                    />
                 </div>
                 <div className="col-2">
-                    <DatePicker className="form-control mb-2" selected={endDate} onChange={(date) => setEndDate(date)} />
+                    <input
+                        onChange={(e)=>setEndDate(
+                            new Date(
+                                new Date(e.target.value).setHours(23, 59, 59, 0)
+                            ).toISOString()
+                        )}
+                        defaultValue={new Date(endDate).toISOString().slice(0, 10)}
+                        type='date'
+                        name='endDate'
+                        className='border rounded p-1 focus:outline-green-800 ml-2'
+                        loading={loading}
+                    />
                 </div>
                 <div className="col-1">
                     <button onClick={searchDate} className="btn text-white mb-2" style={{ backgroundColor: "#45D3D3" }}> <FontAwesomeIcon icon={faSearch} /> </button>
@@ -215,8 +233,8 @@ export const StatsionarProcient = () => {
                     <tbody className="" >
                         {
                             datas && datas.datas && datas.datas.map((data, index) => {
-                                let date1 = data.usedroom && new Date(data.usedroom.beginDay)
-                                let date2 = data.usedroom && new Date(data.usedroom.endDay)
+                                let date1 = data.usedroom && new Date(data.usedroom.beginDay)|| 0
+                                let date2 = data.usedroom && new Date(data.usedroom.endDay) || 0
                                 let diffDays = parseInt((date2 - date1) / (1000 * 60 * 60 * 24)) + 1
                                 let medsestra = 30000 * diffDays
                                 let doctor = 40000 * diffDays
@@ -266,8 +284,8 @@ export const StatsionarProcient = () => {
                     <tbody className="" >
                         {
                             datas && datas.datas && datas.datas.map((data, index) => {
-                                let date1 = data.usedroom && new Date(data.usedroom.beginDay)
-                                let date2 = data.usedroom && new Date(data.usedroom.endDay)
+                                let date1 = data.usedroom && new Date(data.usedroom.beginDay) || 0
+                                let date2 = data.usedroom && new Date(data.usedroom.endDay) || 0
                                 let diffDays = parseInt((date2 - date1) / (1000 * 60 * 60 * 24)) + 1
                                 let medsestra = 30000 * diffDays
                                 let doctor = 40000 * diffDays

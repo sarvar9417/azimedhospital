@@ -349,8 +349,8 @@ router.get('/statsionar/:start/:end', async (req, res) => {
         const rooms = await UsedRoom.find({
             endDay: {
                 $gte:
-                    new Date(new Date(start).getFullYear() + "." + (new Date(start).getMonth() + 1) + "." + (new Date(start).getDate())),
-                $lt: new Date(new Date(end).getFullYear() + "." + (new Date(end).getMonth() + 1) + "." + (new Date(end).getDate() + 1))
+                    start,
+                $lt: end
             }
         })
             .sort({ _id: -1 })
@@ -471,13 +471,11 @@ router.get('/statsionarprocient/:start/:end', async (req, res) => {
         const end = new Date(req.params.end)
         const rooms = await UsedRoom.find({
             endDay: {
-                $gte:
-                    new Date(new Date(start).getFullYear() + "." + (new Date(start).getMonth() + 1) + "." + (new Date(start).getDate())),
-                $lt: new Date(new Date(end).getFullYear() + "." + (new Date(end).getMonth() + 1) + "." + (new Date(end).getDate() + 1))
+                $gte: start,
+                $lt: end
             }
         })
             .sort({ endDay: -1 })
-
         // const connectors = await Connector.find({
         //     bronDay: {
         //         $gte:
